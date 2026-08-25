@@ -1,0 +1,16 @@
+# Credentials. Nothing in here may ever reach the repo: the dashboard is
+# published to GitHub Pages, which serves the repository publicly.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Runtime state. The journal is republished to site/data by scripts/publish.py
+# after being checked for secrets, so the raw file stays local.
+var/

@@ -1,0 +1,45 @@
+# Trading configuration. No credentials here - those live in .env.
+#
+# This file is committed and published. Treat everything in it as public.
+
+# "paper" fills locally against live prices. "live" sends real orders.
+# Changing this is the single most consequential edit in the project.
+mode: paper
+
+paper:
+  starting_cash: 100000
+  quote_currency: USD
+  # Charged against every fill, in both directions. Set these at or above
+  # what your venue actually charges - a simulation that is cheaper than
+  # reality produces strategies that only work in the simulation.
+  slippage_bps: 10
+  fee_bps: 10
+
+# Hard caps. Every one is a refusal, not a warning. Sized for a first run;
+# raise them deliberately, once you have watched the thing behave.
+risk:
+  max_order_notional: 1000      # biggest single order, quote currency
+  max_daily_notional: 5000      # total traded per UTC day
+  max_open_positions: 5
+  daily_loss_limit: 250         # realised loss that trips the kill switch
+  allow_short: false
+  # Caps are checked against a fill this much worse than the quote, so a
+  # market order cannot slip past a limit it nominally fits under.
+  slippage_bps: 50
+
+# Nothing outside this list can be traded, on any venue. An empty list is a
+# configuration error rather than a wildcard.
+symbols:
+  stocks:
+    - AAPL
+    - MSFT
+  crypto:
+    - BTC/USD
+    - ETH/USD
+
+paths:
+  journal: var/journal.jsonl
+  # `touch` this file to stop all trading immediately. Removing it is a
+  # deliberate human action; nothing in the bot clears it.
+  halt: var/HALT
+  publish: site/data/state.json

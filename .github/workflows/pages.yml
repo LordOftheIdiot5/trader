@@ -1,0 +1,49 @@
+name: Deploy dashboard
+
+# Publishes site/ only. The engine, the adapters and anything that has ever
+# seen a credential stay out of the artifact - Pages serves whatever it is
+# given, publicly, so the upload path is deliberately narrow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refuse to publish anything that looks like a credential
+        # Cheap backstop. The journal already refuses to write secrets and
+        # .env is gitignored, but this is the last gate before the bytes are
+        # public, and it costs a second.
+        run: |
+          if grep -rIlE '(api[_-]?key|secret|passphrase)["'"'"']?\s*[:=]\s*["'"'"']?[A-Za-z0-9/+_-]{16,}' site/; then
+            echo "::error::Something in site/ looks like a credential. Not publishing."
+            exit 1
+          fi
+          echo "site/ is clean"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

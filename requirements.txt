@@ -1,0 +1,12 @@
+# Crypto venues. ccxt gives one interface over ~100 exchanges, so which CEX
+# this trades on stays a config line rather than a rewrite.
+ccxt>=4.4.0
+
+# Stocks. alpaca-py talks to both the paper and live endpoints; which one is
+# chosen by the base URL, so the same code path runs in both.
+alpaca-py>=0.33.0
+
+PyYAML>=6.0
+python-dotenv>=1.0.0
+
+pytest>=8.0.0

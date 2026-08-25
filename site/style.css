@@ -1,0 +1,110 @@
+:root {
+  --bg: #0d1117;
+  --card: #161b22;
+  --line: #21262d;
+  --text: #e6edf3;
+  --dim: #7d8590;
+  --good: #3fb950;
+  --bad: #f85149;
+  --accent: #58a6ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 1rem 4rem;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+header, main, footer { max-width: 62rem; margin: 0 auto; }
+
+header { padding: 2.5rem 0 1.25rem; }
+h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.02em; }
+h2 { margin: 0 0 0.9rem; font-size: 0.8rem; text-transform: uppercase;
+     letter-spacing: 0.08em; color: var(--dim); font-weight: 600; }
+h3 { margin: 0 0 0.6rem; font-size: 0.95rem; display: flex;
+     align-items: center; gap: 0.5rem; }
+
+.dim { color: var(--dim); font-weight: 400; }
+.sub { margin: 0.35rem 0 0; color: var(--dim); font-size: 0.85rem; }
+.sub.bad { color: var(--bad); }
+
+/* The halted banner is meant to be impossible to scroll past. */
+.halt {
+  max-width: 62rem;
+  margin: 0 auto 1.25rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--bad);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: rgba(248, 81, 73, 0.1);
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.halt strong { color: var(--bad); letter-spacing: 0.1em; }
+.is-halted { border-top: 3px solid var(--bad); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.85rem;
+}
+
+.stat { display: flex; flex-direction: column; gap: 0.15rem; }
+.stat .label { font-size: 0.72rem; text-transform: uppercase;
+               letter-spacing: 0.06em; color: var(--dim); }
+.stat strong { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.stat.good strong { color: var(--good); }
+.stat.bad strong { color: var(--bad); }
+
+.venue { padding: 0.85rem 0; border-top: 1px solid var(--line); }
+.venue:first-of-type { border-top: 0; padding-top: 0; }
+
+.pill { font-size: 0.68rem; padding: 0.1rem 0.45rem; border-radius: 999px;
+        border: 1px solid currentColor; text-transform: uppercase;
+        letter-spacing: 0.05em; }
+.pill.bad { color: var(--bad); }
+
+table { width: 100%; border-collapse: collapse; margin-top: 0.75rem;
+        font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 0.4rem 0.5rem 0.4rem 0;
+         border-bottom: 1px solid var(--line); }
+th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+     color: var(--dim); font-weight: 600; }
+
+.activity { list-style: none; margin: 0; padding: 0; }
+.entry { display: flex; gap: 0.8rem; padding: 0.4rem 0;
+         border-bottom: 1px solid var(--line); font-size: 0.88rem; }
+.entry:last-child { border-bottom: 0; }
+.entry time { color: var(--dim); font-variant-numeric: tabular-nums;
+              flex: 0 0 5.5rem; }
+.entry.fill span { color: var(--text); }
+.entry.rejected span { color: var(--dim); }
+.entry.rejected::before { content: "✕"; color: var(--bad); }
+.entry.fill::before { content: "●"; color: var(--good); }
+
+.empty { color: var(--dim); font-size: 0.88rem; margin: 0.5rem 0 0; }
+
+footer { margin-top: 2rem; color: var(--dim); font-size: 0.8rem; }
+footer p { margin: 0.25rem 0; }
+
+/* The engine writes tabular numbers everywhere; keep them aligned on narrow
+   screens rather than letting the grid collapse to one cramped column. */
+@media (max-width: 30rem) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .entry { flex-wrap: wrap; }
+  .entry time { flex-basis: 100%; }
+}

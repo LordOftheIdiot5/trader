@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-08-25T17:38:09.575417+00:00",
+  "risk": {
+    "day": "2026-08-25",
+    "orders_today": 0,
+    "notional_today": 0.0,
+    "realised_pnl_today": 0.0,
+    "halted": false,
+    "halt_reason": null,
+    "limits": {
+      "max_order_notional": 1000.0,
+      "max_daily_notional": 5000.0,
+      "max_open_positions": 5,
+      "daily_loss_limit": 250.0,
+      "allow_short": false
+    }
+  },
+  "venues": {
+    "paper": {
+      "reachable": true,
+      "cash": 100000.0,
+      "equity": 100000.0,
+      "positions": {}
+    },
+    "alpaca": {
+      "reachable": true,
+      "cash": 100000.0,
+      "equity": 100000.0,
+      "positions": {}
+    },
+    "crypto": {
+      "reachable": true,
+      "cash": 100000.0,
+      "equity": 100000.0,
+      "positions": {}
+    }
+  },
+  "recent": [
+    {
+      "at": "2026-08-25T17:33:41.442314+00:00",
+      "kind": "fill",
+      "order_id": "paper-1",
+      "venue": "paper",
+      "symbol": "BTC/USD",
+      "side": "buy",
+      "quantity": 0.00633232,
+      "price": 79050.4715,
+      "fee": 0.50057288168888,
+      "notional": 500.57,
+      "strategy": "smoke"
+    },
+    {
+      "at": "2026-08-25T17:33:41.585117+00:00",
+      "kind": "rejected",
+      "symbol": "BTC/USD",
+      "side": "buy",
+      "quantity": 0.0633232,
+      "reason": "order notional 5,025.00 (incl. 50bps slippage) exceeds per-order cap 1,000.00"
+    },
+    {
+      "at": "2026-08-25T17:33:41.764149+00:00",
+      "kind": "rejected",
+      "symbol": "DOGE/USD",
+      "side": "buy",
+      "quantity": 1,
+      "reason": "DOGE/USD is not in the allowlist (AAPL, MSFT, BTC/USD, ETH/USD)"
+    }
+  ]
+}

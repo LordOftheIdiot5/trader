@@ -1,0 +1,45 @@
+# systemd unit for the trading engine.
+#
+#   sudo cp deploy/trader.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now trader
+#   journalctl -u trader -f
+#
+# Adjust User and the paths if you did not clone to /opt/trader.
+
+[Unit]
+Description=trader.nordl.dev engine
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=trader
+WorkingDirectory=/opt/trader
+EnvironmentFile=/opt/trader/.env
+ExecStart=/opt/trader/.venv/bin/python scripts/run.py --interval 300 --push
+
+# Restart on crash, but give up if it is crash-looping. A process that cannot
+# start should stay down and be noticed, not thrash against the exchange's
+# rate limits.
+Restart=on-failure
+RestartSec=30
+StartLimitBurst=5
+StartLimitIntervalSec=300
+
+# The engine needs the network, its own directory, and nothing else.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/trader/var /opt/trader/site/data
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

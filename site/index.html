@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>trader.nordl.dev</title>
+<meta name="description" content="Automated stock and crypto trading — live status, positions and risk limits.">
+<meta property="og:title" content="trader.nordl.dev">
+<meta property="og:url" content="https://trader.nordl.dev">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>trader<span class="dim">.nordl.dev</span></h1>
+  <p class="sub" id="mode">loading…</p>
+</header>
+
+<!-- Shown whenever the kill switch is engaged. Deliberately impossible to
+     miss: a halted bot that looks idle is how a halt goes unnoticed. -->
+<div id="halt" class="halt" hidden>
+  <strong>HALTED</strong>
+  <span id="haltReason"></span>
+</div>
+
+<main>
+  <section class="card">
+    <h2>Today</h2>
+    <div class="grid" id="today"></div>
+  </section>
+
+  <section class="card">
+    <h2>Limits</h2>
+    <div class="grid" id="limits"></div>
+  </section>
+
+  <section class="card">
+    <h2>Venues</h2>
+    <div id="venues"></div>
+  </section>
+
+  <section class="card">
+    <h2>Recent activity</h2>
+    <ul id="activity" class="activity"></ul>
+    <p class="empty" id="activityEmpty" hidden>Nothing yet.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Published from the engine. Read-only — this page holds no credentials and
+     cannot place orders.</p>
+  <p class="dim" id="generated"></p>
+</footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+const money = (value, currency = "USD") =>
+  value == null ? "—" : new Intl.NumberFormat("en-US", {
+    style: "currency", currency, maximumFractionDigits: 2,
+  }).format(value);
+
+function stat(label, value, tone) {
+  const cell = document.createElement("div");
+  cell.className = "stat" + (tone ? ` ${tone}` : "");
+  const l = document.createElement("span");
+  l.className = "label";
+  l.textContent = label;
+  const v = document.createElement("strong");
+  v.textContent = value;
+  cell.append(l, v);
+  return cell;
+}
+
+function render(state) {
+  const risk = state.risk || {};
+  const limits = risk.limits || {};
+
+  $("mode").textContent =
+    `${Object.keys(state.venues || {}).join(" · ") || "no venues"} — updated ${
+      new Date(state.generated_at).toLocaleString()}`;
+  $("generated").textContent = `snapshot ${state.generated_at}`;
+
+  if (risk.halted) {
+    $("halt").hidden = false;
+    $("haltReason").textContent = risk.halt_reason || "";
+    document.body.classList.add("is-halted");
+  }
+
+  const pnl = risk.realised_pnl_today;
+  $("today").append(
+    stat("Orders", risk.orders_today ?? "—"),
+    stat("Notional", money(risk.notional_today)),
+    stat("Realised P&L", money(pnl), pnl == null ? "" : pnl < 0 ? "bad" : "good"),
+    stat("Day", risk.day || "—"),
+  );
+
+  $("limits").append(
+    stat("Max order", money(limits.max_order_notional)),
+    stat("Max daily", money(limits.max_daily_notional)),
+    stat("Max positions", limits.max_open_positions ?? "—"),
+    stat("Loss limit", money(limits.daily_loss_limit)),
+    stat("Shorting", limits.allow_short ? "enabled" : "disabled"),
+  );
+
+  const venues = $("venues");
+  for (const [name, venue] of Object.entries(state.venues || {})) {
+    const block = document.createElement("div");
+    block.className = "venue";
+    const title = document.createElement("h3");
+    title.textContent = name;
+    if (!venue.reachable) {
+      title.append(Object.assign(document.createElement("span"),
+        { className: "pill bad", textContent: "unreachable" }));
+      block.append(title);
+      const why = document.createElement("p");
+      why.className = "empty";
+      why.textContent = venue.error || "no detail";
+      block.append(why);
+      venues.append(block);
+      continue;
+    }
+    block.append(title);
+
+    const row = document.createElement("div");
+    row.className = "grid";
+    row.append(stat("Cash", money(venue.cash)), stat("Equity", money(venue.equity)));
+    block.append(row);
+
+    const positions = Object.entries(venue.positions || {});
+    if (positions.length === 0) {
+      const flat = document.createElement("p");
+      flat.className = "empty";
+      flat.textContent = "No open positions.";
+      block.append(flat);
+    } else {
+      const table = document.createElement("table");
+      table.innerHTML =
+        "<thead><tr><th>Symbol</th><th>Qty</th><th>Avg price</th></tr></thead>";
+      const body = document.createElement("tbody");
+      for (const [symbol, position] of positions) {
+        const tr = document.createElement("tr");
+        for (const cell of [symbol, position.quantity, money(position.average_price)]) {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          tr.append(td);
+        }
+        body.append(tr);
+      }
+      table.append(body);
+      block.append(table);
+    }
+    venues.append(block);
+  }
+
+  const activity = $("activity");
+  const entries = (state.recent || []).slice().reverse();
+  $("activityEmpty").hidden = entries.length > 0;
+  for (const entry of entries) {
+    const li = document.createElement("li");
+    li.className = `entry ${entry.kind}`;
+    const when = document.createElement("time");
+    when.textContent = new Date(entry.at).toLocaleTimeString();
+    const text = document.createElement("span");
+    if (entry.kind === "fill") {
+      text.textContent =
+        `${entry.side} ${entry.quantity} ${entry.symbol} @ ${entry.price} on ${entry.venue}`;
+    } else if (entry.kind === "rejected") {
+      text.textContent = `refused ${entry.side} ${entry.quantity} ${entry.symbol} — ${entry.reason}`;
+    } else {
+      text.textContent = entry.message || entry.kind;
+    }
+    li.append(when, text);
+    activity.append(li);
+  }
+}
+
+fetch("data/state.json", { cache: "no-store" })
+  .then((response) => {
+    if (!response.ok) throw new Error(`state.json returned ${response.status}`);
+    return response.json();
+  })
+  .then(render)
+  .catch((error) => {
+    // A dashboard that silently shows nothing is worse than one that says the
+    // feed is down: an idle bot and a broken publisher look identical.
+    $("mode").textContent = "Could not load state — the engine may not have published yet.";
+    $("mode").classList.add("bad");
+    console.warn(error);
+  });
+</script>
+</body>
+</html>

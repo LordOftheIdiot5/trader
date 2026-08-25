@@ -8,6 +8,8 @@ runs in both, so practice actually rehearses production.
 
 from __future__ import annotations
 
+import os
+
 import ccxt
 
 from .adapters.paper import PaperVenue
@@ -19,14 +21,47 @@ PUBLIC_PRICE_EXCHANGE = "kraken"
 
 
 def _public_price_source(exchange_id: str = PUBLIC_PRICE_EXCHANGE):
+    """Route each symbol to a feed that can actually quote it.
+
+    A crypto exchange has no opinion on AAPL, so asking one for a stock price
+    fails on every tick. Pairs (BTC/USD) go to ccxt; bare tickers (AAPL) go to
+    Alpaca's market data API, which works with paper keys and needs no funded
+    account. Without those keys stocks simply have no price in paper mode,
+    which the strategy treats as "no opinion" rather than as a crash.
+    """
     exchange = getattr(ccxt, exchange_id)({"enableRateLimit": True})
+    stock_data = None
+    if os.environ.get("ALPACA_API_KEY") and os.environ.get("ALPACA_API_SECRET"):
+        from alpaca.data.historical import StockHistoricalDataClient
+
+        stock_data = StockHistoricalDataClient(
+            os.environ["ALPACA_API_KEY"], os.environ["ALPACA_API_SECRET"]
+        )
 
     def source(symbol: str) -> float:
-        ticker = exchange.fetch_ticker(symbol)
-        price = ticker.get("last") or ticker.get("close")
-        if not price:
-            raise ValueError(f"{exchange_id} returned no last price for {symbol}")
-        return float(price)
+        if "/" in symbol:
+            ticker = exchange.fetch_ticker(symbol)
+            price = ticker.get("last") or ticker.get("close")
+            if not price:
+                raise ValueError(f"{exchange_id} returned no last price for {symbol}")
+            return float(price)
+
+        if stock_data is None:
+            raise ValueError(
+                f"{symbol} is a stock and no Alpaca keys are set, so it cannot "
+                "be quoted in paper mode. Add ALPACA_API_KEY/SECRET to .env "
+                "(paper keys are enough) or remove it from config.yaml."
+            )
+        from alpaca.data.requests import StockLatestTradeRequest
+
+        response = stock_data.get_stock_latest_trade(
+            StockLatestTradeRequest(symbol_or_symbols=symbol)
+        )
+        trade = response.get(symbol) if hasattr(response, "get") else response[symbol]
+        price = float(getattr(trade, "price", 0) or 0)
+        if price <= 0:
+            raise ValueError(f"Alpaca returned no last price for {symbol}")
+        return price
 
     return source
 

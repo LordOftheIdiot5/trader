@@ -34,6 +34,19 @@ from .schema import AnalystReport, ChairDecision, RiskRuling
 # weaker model agrees with whatever it was shown last.
 DEFAULT_MODEL = "claude-opus-5"
 
+# Models that accept adaptive thinking and output_config.effort. Everything
+# older takes neither: Haiku 4.5 rejects `effort` outright and still expects
+# the fixed budget_tokens form of thinking. Matching on family prefix rather
+# than an exact list so a new point release does not silently fall back.
+_ADAPTIVE_FAMILIES = (
+    "claude-opus-5", "claude-opus-4-8", "claude-opus-4-7", "claude-opus-4-6",
+    "claude-sonnet-5", "claude-sonnet-4-6", "claude-fable-5", "claude-mythos-5",
+)
+
+
+def supports_adaptive_thinking(model: str) -> bool:
+    return any(model.startswith(family) for family in _ADAPTIVE_FAMILIES)
+
 
 class DeskError(Exception):
     """Raised when the desk cannot produce a usable answer."""
@@ -102,6 +115,23 @@ class TradingDesk:
         self.chair_effort = chair_effort
         self._usage = {"input": 0, "output": 0, "cache_read": 0, "calls": 0}
 
+    def _request_extras(self, effort: str) -> dict:
+        """Parameters that only some models accept.
+
+        Adaptive thinking and `output_config.effort` exist on the 4.6-and-later
+        family. On Haiku 4.5 `effort` is rejected outright and thinking still
+        wants the older fixed `budget_tokens` form, so sending the modern shape
+        to a cheaper model fails every call rather than degrading. Cost tuning
+        by swapping the model is exactly what this class is for, so the check
+        belongs here rather than in a comment telling people not to.
+        """
+        if not supports_adaptive_thinking(self.model):
+            return {}
+        return {
+            "thinking": {"type": "adaptive"},
+            "output_config": {"effort": effort},
+        }
+
     def _ask(self, brief: str, prompt: str, schema, effort: str):
         response = self.client.messages.parse(
             model=self.model,
@@ -110,14 +140,16 @@ class TradingDesk:
                 {
                     "type": "text",
                     "text": brief,
-                    # Frozen prefix. Everything volatile is in the user turn.
+                    # Frozen prefix. Marked cacheable, though note each brief is
+                    # ~700 tokens and the minimum cacheable prefix is ~1024, so
+                    # today this mostly does not engage. It costs nothing to
+                    # leave, and matters if the briefs grow.
                     "cache_control": {"type": "ephemeral"},
                 }
             ],
-            thinking={"type": "adaptive"},
-            output_config={"effort": effort},
             messages=[{"role": "user", "content": prompt}],
             output_format=schema,
+            **self._request_extras(effort),
         )
 
         usage = getattr(response, "usage", None)

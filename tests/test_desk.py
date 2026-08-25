@@ -240,3 +240,32 @@ class TestDeskStrategy:
         snapshot = repr(strategy._snapshot(context())).lower()
         for leak in ("key", "secret", "token", "password"):
             assert leak not in snapshot
+
+
+class TestModelCompatibility:
+    """Swapping the model for cost is the main tuning knob, so the parameters
+    that only some models accept have to follow the model automatically."""
+
+    def _params_for(self, model):
+        client = FakeClient(answers())
+        desk = TradingDesk(client, model=model, budget=DeskBudget(min_seconds_between_runs=0))
+        desk.run({"symbols": {"BTC/USD": {}}})
+        return client.calls[0]
+
+    def test_modern_models_get_adaptive_thinking_and_effort(self):
+        call = self._params_for("claude-opus-5")
+        assert call["thinking"] == {"type": "adaptive"}
+        assert call["output_config"]["effort"] == "low"
+
+    def test_haiku_gets_neither(self):
+        # Haiku 4.5 rejects output_config.effort outright; sending the modern
+        # shape would fail every call instead of just costing less.
+        call = self._params_for("claude-haiku-4-5")
+        assert "thinking" not in call
+        assert "output_config" not in call
+
+    def test_sonnet_5_is_modern(self):
+        assert "thinking" in self._params_for("claude-sonnet-5")
+
+    def test_the_model_reaches_the_api_call(self):
+        assert self._params_for("claude-haiku-4-5")["model"] == "claude-haiku-4-5"

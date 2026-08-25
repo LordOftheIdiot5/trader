@@ -29,10 +29,14 @@ risk:
 
 # Nothing outside this list can be traded, on any venue. An empty list is a
 # configuration error rather than a wildcard.
+# Stock tickers use Yahoo's suffixes, the same convention stockwatch uses:
+# .OL Oslo, .ST Stockholm, .DE XETRA, .PA Paris, .L London, .CO Copenhagen,
+# .HE Helsinki, no suffix for US. Crypto is always a PAIR with a slash - that
+# slash is how the price router tells the two asset classes apart.
 symbols:
   stocks:
     - AAPL
-    - MSFT
+    - EQNR.OL
   crypto:
     - BTC/USD
     - ETH/USD

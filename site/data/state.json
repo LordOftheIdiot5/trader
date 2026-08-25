@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T21:30:51.149148+00:00",
+  "generated_at": "2026-08-25T22:15:11.763836+00:00",
   "risk": {
     "day": "2026-08-25",
     "orders_today": 0,
@@ -35,5 +35,30 @@
       "positions": {}
     }
   },
-  "recent": []
+  "recent": [
+    {
+      "at": "2026-08-25T22:08:45.829992+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 2847,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 2
+      }
+    },
+    {
+      "at": "2026-08-25T22:15:11.763532+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 2903,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 2
+      }
+    }
+  ]
 }

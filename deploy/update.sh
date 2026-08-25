@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# Pull, fix up, restart. The supported way to update a running VPS.
+#
+#   sudo bash /opt/trader/deploy/update.sh
+#
+# Exists because doing this by hand goes wrong in a specific, repeatable way:
+# git runs as root, so every file it rewrites ends up root-owned, and the
+# service user then cannot write the files it owns. That failure shows up much
+# later as a permission error on state.json rather than at the pull, so it is
+# worth having one command that always does the whole sequence.
+
+set -euo pipefail
+
+DIR="${DIR:-/opt/trader}"
+USER_NAME="${USER_NAME:-trader}"
+UNIT=/etc/systemd/system/trader.service
+
+if [[ $EUID -ne 0 ]]; then
+  echo "Run as root (sudo bash deploy/update.sh)" >&2
+  exit 1
+fi
+
+git config --global --add safe.directory "$DIR" 2>/dev/null || true
+
+echo "==> pulling"
+before=$(git -C "$DIR" rev-parse --short HEAD)
+# The service commits state.json, so the tree is often dirty here. Stash it
+# rather than fail: that file is regenerated on the next tick anyway.
+git -C "$DIR" stash push --quiet -- site/data 2>/dev/null || true
+git -C "$DIR" pull --ff-only
+after=$(git -C "$DIR" rev-parse --short HEAD)
+echo "    $before -> $after"
+
+echo "==> dependencies"
+"$DIR/.venv/bin/pip" install --quiet -r "$DIR/requirements.txt"
+
+echo "==> tests"
+# A box that cannot pass its own risk tests should not resume trading.
+( cd "$DIR" && "$DIR/.venv/bin/python" -m pytest tests/ -q )
+
+echo "==> ownership"
+# Everything git just touched is root-owned. Hand it all back.
+chown -R "$USER_NAME:$USER_NAME" "$DIR"
+chmod 600 "$DIR/.env" 2>/dev/null || true
+[[ -f "$DIR/.ssh/deploy_ed25519" ]] && chmod 600 "$DIR/.ssh/deploy_ed25519"
+
+echo "==> unit"
+if ! cmp -s "$DIR/deploy/trader.service" "$UNIT"; then
+  cp "$DIR/deploy/trader.service" "$UNIT"
+  systemctl daemon-reload
+  echo "    unit file updated"
+fi
+
+echo "==> restart"
+systemctl restart trader
+sleep 5
+systemctl is-active trader
+journalctl -u trader -n 15 --no-pager

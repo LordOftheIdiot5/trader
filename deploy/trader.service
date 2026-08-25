@@ -12,6 +12,11 @@ Description=trader.nordl.dev engine
 After=network-online.target
 Wants=network-online.target
 
+# Crash-loop guard. These are Unit-level keys - systemd ignores them with a
+# warning if they are put under [Service], which silently removes the limit.
+StartLimitBurst=5
+StartLimitIntervalSec=300
+
 [Service]
 Type=simple
 User=trader
@@ -24,15 +29,16 @@ ExecStart=/opt/trader/.venv/bin/python scripts/run.py --interval 300 --push
 # rate limits.
 Restart=on-failure
 RestartSec=30
-StartLimitBurst=5
-StartLimitIntervalSec=300
 
-# The engine needs the network, its own directory, and nothing else.
+# The engine needs the network, three directories, and nothing else.
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/trader/var /opt/trader/site/data
+# .git is here because publishing is a commit and a push, and git writes a
+# lockfile inside .git to do either. Without it the engine runs correctly and
+# silently never updates the dashboard.
+ReadWritePaths=/opt/trader/var /opt/trader/site/data /opt/trader/.git
 ProtectKernelTunables=true
 ProtectKernelModules=true
 ProtectControlGroups=true

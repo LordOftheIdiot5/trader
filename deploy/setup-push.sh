@@ -53,7 +53,10 @@ git -C "$DIR" config core.sshCommand \
 git -C "$DIR" config user.name "trader-vps"
 git -C "$DIR" config user.email "trader-vps@users.noreply.github.com"
 
-chown -R "$USER_NAME:$USER_NAME" "$DIR/.ssh" "$DIR/.git"
+# Whole tree, not just the two directories touched above: anything git has
+# rewritten while running as root is now root-owned, and the service user
+# has to be able to write every file it is responsible for.
+chown -R "$USER_NAME:$USER_NAME" "$DIR"
 chmod 700 "$DIR/.ssh"
 chmod 600 "$KEY"
 

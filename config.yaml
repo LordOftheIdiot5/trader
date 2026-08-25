@@ -34,11 +34,17 @@ risk:
 # .HE Helsinki, no suffix for US. Crypto is always a PAIR with a slash - that
 # slash is how the price router tells the two asset classes apart.
 symbols:
-  # Crypto only for now. Two symbols rather than four also halves the desk's
-  # snapshot, which is a third of its token bill.
+  # Crypto only for now. Each symbol adds roughly 260 tokens to every desk
+  # snapshot, and the snapshot is read by all four seats - so the list is
+  # chosen for different drivers rather than length. Six more large-cap alts
+  # that all follow BTC would add cost without adding information.
   crypto:
-    - BTC/USD
-    - ETH/USD
+    - BTC/USD      # the market's beta; everything else is measured against it
+    - ETH/USD      # largest alt, but moves with BTC most of the time
+    - SOL/USD      # competing L1, its own ecosystem news
+    - XRP/USD      # payments and legal outcomes - the least BTC-correlated here
+    - LINK/USD     # infrastructure rather than a currency thesis
+    - DOGE/USD     # pure sentiment, which is a genuinely different driver
 
 paths:
   journal: var/journal.jsonl

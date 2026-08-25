@@ -116,7 +116,7 @@ def collect_prices(venue, symbols, history) -> dict[str, float]:
     return prices
 
 
-def tick(engine: Engine, config, strategy, history, push: bool) -> None:
+def tick(engine: Engine, config, strategy, history, history_path, push: bool) -> None:
     if engine.guard.kill_switch.engaged:
         # Still publish while halted: a dashboard that goes stale during a
         # halt is exactly when you most want to see the reason.
@@ -128,6 +128,7 @@ def tick(engine: Engine, config, strategy, history, push: bool) -> None:
         venue_name = "paper" if not config.is_live else "crypto"
         venue = engine.venues[venue_name]
         prices = collect_prices(venue, config.symbols, history)
+        history.save(history_path)
         context = Context(
             now=datetime.now(timezone.utc),
             prices=prices,
@@ -180,15 +181,18 @@ def main() -> int:
               f"at most {config.desk.get('max_runs_per_day', 24)} runs/day")
     else:
         print("strategy: none - publishing state only")
-    history = PriceHistory()
+    history_path = config.paths.journal.parent / "history.json"
+    history = PriceHistory.load(history_path)
+    if len(history):
+        print(f"history: restored {len(history)} symbols from {history_path.name}")
 
     if args.once:
-        tick(engine, config, strategy, history, args.push)
+        tick(engine, config, strategy, history, history_path, args.push)
         return 0
 
     while True:
         try:
-            tick(engine, config, strategy, history, args.push)
+            tick(engine, config, strategy, history, history_path, args.push)
         except Exception as error:
             # One bad tick must not take the process down; the next one may
             # succeed, and a dead process publishes nothing at all.

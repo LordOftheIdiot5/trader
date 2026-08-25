@@ -34,9 +34,8 @@ risk:
 # .HE Helsinki, no suffix for US. Crypto is always a PAIR with a slash - that
 # slash is how the price router tells the two asset classes apart.
 symbols:
-  stocks:
-    - AAPL
-    - EQNR.OL
+  # Crypto only for now. Two symbols rather than four also halves the desk's
+  # snapshot, which is a third of its token bill.
   crypto:
     - BTC/USD
     - ETH/USD
@@ -53,7 +52,10 @@ paths:
 # that matters - at Opus 5 rates a run is roughly $0.10-0.20, so hourly is a
 # few dollars a day and every-five-minutes is not.
 desk:
-  model: claude-opus-5
+  # Haiku runs the desk for roughly a fifth of Opus. It is the weaker
+  # model at the thing this design needs - independent disagreement - so
+  # read the first few runs before deciding it is good enough.
+  model: claude-haiku-4-5
   min_minutes_between_runs: 60
   max_runs_per_day: 24
   # The chair weighs conflicting cases and is worth the effort; the analysts

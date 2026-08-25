@@ -137,3 +137,40 @@ class TestCrossoverSignals:
             context(history, {"BTC/USD": 130, "ETH/USD": 100})
         )
         assert [i.symbol for i in intents] == ["BTC/USD"]
+
+
+class TestHistoryPersistence:
+    """History has to survive a restart, or the desk goes blind after every
+    deploy for as long as it takes to re-collect 30 observations."""
+
+    def test_a_round_trip_preserves_the_series(self, tmp_path):
+        path = tmp_path / "history.json"
+        feed(PriceHistory(), "BTC/USD", [1, 2, 3]).save(path)
+        assert PriceHistory.load(path).series("BTC/USD") == [1, 2, 3]
+
+    def test_a_missing_file_is_an_empty_history_not_a_crash(self, tmp_path):
+        assert len(PriceHistory.load(tmp_path / "nope.json")) == 0
+
+    def test_a_corrupt_file_does_not_stop_the_engine_starting(self, tmp_path):
+        # An hour of silence beats a crash loop.
+        path = tmp_path / "history.json"
+        path.write_text("{not json at all")
+        assert len(PriceHistory.load(path)) == 0
+
+    def test_junk_values_are_skipped_not_fatal(self, tmp_path):
+        path = tmp_path / "history.json"
+        path.write_text('{"BTC/USD": [1, "x", null, 3]}')
+        assert PriceHistory.load(path).series("BTC/USD") == [1, 3]
+
+    def test_the_bound_is_reapplied_on_load(self, tmp_path):
+        path = tmp_path / "history.json"
+        feed(PriceHistory(maxlen=500), "BTC/USD", range(1, 101)).save(path)
+        assert len(PriceHistory.load(path, maxlen=10).series("BTC/USD")) == 10
+
+    def test_the_write_is_atomic(self, tmp_path):
+        # Write-then-rename: a crash mid-write must leave the old file intact.
+        path = tmp_path / "history.json"
+        feed(PriceHistory(), "BTC/USD", [1, 2]).save(path)
+        feed(PriceHistory(), "BTC/USD", [9, 9, 9]).save(path)
+        assert PriceHistory.load(path).series("BTC/USD") == [9, 9, 9]
+        assert not list(tmp_path.glob("*.tmp")), "no temp file left behind"

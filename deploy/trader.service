@@ -22,7 +22,7 @@ Type=simple
 User=trader
 WorkingDirectory=/opt/trader
 EnvironmentFile=/opt/trader/.env
-ExecStart=/opt/trader/.venv/bin/python scripts/run.py --interval 300 --push
+ExecStart=/opt/trader/.venv/bin/python scripts/run.py --interval 300 --strategy desk --push
 
 # Restart on crash, but give up if it is crash-looping. A process that cannot
 # start should stay down and be noticed, not thrash against the exchange's

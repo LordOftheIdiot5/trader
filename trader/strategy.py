@@ -12,6 +12,7 @@ caps on it.
 
 from __future__ import annotations
 
+import json
 from collections import deque
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -77,6 +78,50 @@ class PriceHistory:
 
     def __len__(self) -> int:
         return len(self._series)
+
+    # -- persistence ---------------------------------------------------------
+    #
+    # History has to outlive the process. The desk's technical seat is told to
+    # stay silent below ~20 observations, and at a five minute tick that is
+    # over an hour of collecting. Without this, every deploy or restart blinds
+    # it for the rest of the morning - and restarts are the one thing that is
+    # certain to happen.
+
+    def to_dict(self) -> dict:
+        return {symbol: list(series) for symbol, series in self._series.items()}
+
+    def save(self, path) -> None:
+        from pathlib import Path
+
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        # Write-then-rename, so a crash mid-write leaves the previous file
+        # intact rather than a truncated one that fails to parse on boot.
+        temporary = path.with_suffix(path.suffix + ".tmp")
+        temporary.write_text(json.dumps(self.to_dict()), encoding="utf-8")
+        temporary.replace(path)
+
+    @classmethod
+    def load(cls, path, maxlen: int = 500) -> "PriceHistory":
+        from pathlib import Path
+
+        history = cls(maxlen=maxlen)
+        path = Path(path)
+        if not path.exists():
+            return history
+        try:
+            stored = json.loads(path.read_text(encoding="utf-8"))
+        except (ValueError, OSError):
+            # A corrupt history file must not stop the engine starting. An
+            # empty history costs an hour of silence; a crash loop costs more.
+            return history
+        for symbol, series in (stored or {}).items():
+            for price in series:
+                try:
+                    history.record(symbol, float(price))
+                except (TypeError, ValueError):
+                    continue
+        return history
 
 
 @runtime_checkable

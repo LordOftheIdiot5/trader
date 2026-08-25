@@ -52,7 +52,21 @@ if ! cmp -s "$DIR/deploy/trader.service" "$UNIT"; then
 fi
 
 echo "==> restart"
+# Marked before the restart so the log below can be scoped to this run only.
+# `journalctl -n 15` shows the last fifteen lines whatever their age, which
+# right after a fix means proudly displaying the errors it just fixed.
+restarted_at=$(date -u +"%Y-%m-%d %H:%M:%S")
 systemctl restart trader
-sleep 5
+sleep 6
 systemctl is-active trader
-journalctl -u trader -n 15 --no-pager
+
+echo "==> log since this restart"
+journalctl -u trader --since "$restarted_at" --no-pager --output=cat | grep -v "^$" || true
+
+if journalctl -u trader --since "$restarted_at" --no-pager \
+     | grep -qiE "tick failed|publish failed|Traceback"; then
+  echo
+  echo "!! errors since restart - see above" >&2
+  exit 1
+fi
+echo "    no errors since restart"

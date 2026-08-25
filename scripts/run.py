@@ -32,7 +32,15 @@ from trader.engine import Engine
 from trader.journal import Journal
 from trader.risk import KillSwitch, RiskGuard
 from trader.strategies.crossover import Crossover
+from trader.state import material_fingerprint
 from trader.strategy import Context, PriceHistory
+
+
+# Push at least this often even when nothing changed, so a stale dashboard
+# means "the engine is down" rather than "the market was quiet".
+HEARTBEAT_SECONDS = 3600
+
+_last = {"fingerprint": None, "pushed_at": 0.0}
 
 
 def publish(engine: Engine, destination: Path, push: bool) -> None:
@@ -42,11 +50,16 @@ def publish(engine: Engine, destination: Path, push: bool) -> None:
 
     if not push:
         return
+
+    fingerprint = material_fingerprint(snapshot)
+    stale = time.time() - _last["pushed_at"] > HEARTBEAT_SECONDS
+    if fingerprint == _last["fingerprint"] and not stale:
+        return
+
     root = destination.parent.parent.parent
     try:
         subprocess.run(["git", "add", str(destination)], cwd=root, check=True,
                        capture_output=True)
-        # Nothing to commit is the normal case on a quiet tick, not a failure.
         staged = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=root)
         if staged.returncode != 0:
             subprocess.run(
@@ -54,8 +67,11 @@ def publish(engine: Engine, destination: Path, push: bool) -> None:
                 cwd=root, check=True, capture_output=True,
             )
             subprocess.run(["git", "push"], cwd=root, check=True, capture_output=True)
+        _last["fingerprint"] = fingerprint
+        _last["pushed_at"] = time.time()
     except subprocess.CalledProcessError as error:
         # A failed publish must never stop trading, and must never be silent.
+        # The fingerprint is deliberately not updated, so the next tick retries.
         detail = (error.stderr or b"").decode(errors="replace").strip()
         print(f"publish failed (continuing): {detail}", file=sys.stderr)
 

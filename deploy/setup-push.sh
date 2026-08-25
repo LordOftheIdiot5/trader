@@ -24,6 +24,11 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+# The repo is owned by the service user but these commands run as root, so
+# git refuses to touch it until the path is marked trusted. Root already has
+# full access; this only silences a guard aimed at multi-user machines.
+git config --global --add safe.directory "$DIR" 2>/dev/null || true
+
 mkdir -p "$DIR/.ssh"
 
 if [[ -f "$KEY" ]]; then

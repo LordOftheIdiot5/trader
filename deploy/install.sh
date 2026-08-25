@@ -31,6 +31,10 @@ if ! id -u "$USER_NAME" >/dev/null 2>&1; then
 fi
 
 echo "==> code at $DIR"
+# Marked trusted before any git call: the clone below chowns the tree to the
+# service user, and every later root-run git command would otherwise stop
+# with "detected dubious ownership".
+git config --global --add safe.directory "$DIR" 2>/dev/null || true
 if [[ -d "$DIR/.git" ]]; then
   git -C "$DIR" pull --ff-only
 else

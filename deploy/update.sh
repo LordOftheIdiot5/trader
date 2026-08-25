@@ -44,6 +44,24 @@ chown -R "$USER_NAME:$USER_NAME" "$DIR"
 chmod 600 "$DIR/.env" 2>/dev/null || true
 [[ -f "$DIR/.ssh/deploy_ed25519" ]] && chmod 600 "$DIR/.ssh/deploy_ed25519"
 
+echo "==> .env"
+# install.sh only seeds .env when it does not exist, so a key added to
+# .env.example after the first install never reaches an existing box. Nothing
+# reports that: the setting is simply absent and whatever needed it fails
+# later, somewhere unrelated. Compare the key names - never the values.
+if [[ -f "$DIR/.env" && -f "$DIR/.env.example" ]]; then
+  missing=$(comm -23 \
+    <(grep -oE '^[A-Z_]+=' "$DIR/.env.example" | sort -u) \
+    <(grep -oE '^[A-Z_]+=' "$DIR/.env" | sort -u))
+  if [[ -n "$missing" ]]; then
+    echo "    new settings in .env.example that your .env does not have:"
+    echo "$missing" | sed 's/=$//; s/^/      /'
+    echo "    add them with: nano $DIR/.env"
+  else
+    echo "    up to date with .env.example"
+  fi
+fi
+
 echo "==> unit"
 if ! cmp -s "$DIR/deploy/trader.service" "$UNIT"; then
   cp "$DIR/deploy/trader.service" "$UNIT"

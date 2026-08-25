@@ -35,6 +35,7 @@ class Config:
     paper_slippage_bps: float
     paper_fee_bps: float
     quote_currency: str
+    desk: dict
 
     @property
     def is_live(self) -> bool:
@@ -94,6 +95,7 @@ def load(path: Path | None = None) -> Config:
         paper_slippage_bps=float(paper.get("slippage_bps", 10)),
         paper_fee_bps=float(paper.get("fee_bps", 10)),
         quote_currency=str(paper.get("quote_currency", "USD")),
+        desk=dict(raw.get("desk") or {}),
     )
 
     if config.is_live:

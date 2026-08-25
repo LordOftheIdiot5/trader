@@ -91,9 +91,38 @@ Deliberately more than one switch, so it cannot happen by accident:
 Do 1 without 2 and 3 and it will fail loudly rather than trade something
 unexpected.
 
+## The multi-agent desk
+
+`--strategy desk` convenes four Claude seats per run: a technical analyst and
+a portfolio analyst in parallel (they do not see each other's work, so their
+opinions stay independent), then a chair who decides, then a risk officer who
+can veto. Silence from the risk seat is not approval - a symbol it does not
+explicitly list is treated as vetoed.
+
+Be clear about what this does and does not buy:
+
+  - It does NOT predict prices. No language model does. Nothing about the
+    arrangement creates an edge, and a well-argued rationale is not evidence
+    of one - fluency reads as confidence, which is exactly the trap.
+  - It DOES force a position to survive contradiction before it becomes an
+    order, and it leaves an auditable record of why every trade was placed.
+    That is the real product.
+
+The desk is not privileged. It emits OrderIntents like any other strategy and
+they pass through the same RiskGuard, so a model that talks itself into a
+maximum-conviction bet meets the same per-order cap as a buggy moving average.
+
+Cost is cadence. Four calls a run at Opus 5 rates is roughly $0.10-0.20, so:
+
+    hourly          ~24 runs/day    a few dollars a day
+    every 5 min    ~288 runs/day    emphatically not that
+
+`config.yaml` enforces both a minimum gap between runs and a hard daily
+ceiling, checked before the first call rather than after the fourth.
+
 ## What this is not
 
-It has no strategy in it. The engine routes and constrains orders; deciding
+It has no strategy of its own. The engine routes and constrains orders; deciding
 *what* to trade is yours. It also does not model partial fills, queue
 position, or market impact — a good paper result says the plumbing works, not
 that the strategy does.

@@ -76,6 +76,28 @@ def publish(engine: Engine, destination: Path, push: bool) -> None:
         print(f"publish failed (continuing): {detail}", file=sys.stderr)
 
 
+def build_desk(config, journal):
+    """Assemble the multi-agent desk from config. Imported lazily so the rest
+    of the engine does not depend on the anthropic SDK being installed."""
+    import anthropic
+
+    from trader.desk.desk import DeskBudget, TradingDesk
+    from trader.strategies.desk import DeskStrategy
+
+    settings = config.desk
+    desk = TradingDesk(
+        client=anthropic.Anthropic(),
+        model=settings.get("model", "claude-opus-5"),
+        budget=DeskBudget(
+            min_seconds_between_runs=float(settings.get("min_minutes_between_runs", 60)) * 60,
+            max_runs_per_day=int(settings.get("max_runs_per_day", 24)),
+        ),
+        analyst_effort=settings.get("analyst_effort", "low"),
+        chair_effort=settings.get("chair_effort", "high"),
+    )
+    return DeskStrategy(desk, symbols=config.symbols, journal=journal)
+
+
 def collect_prices(venue, symbols, history) -> dict[str, float]:
     """Quote every symbol, tolerating individual failures.
 
@@ -130,8 +152,9 @@ def main() -> int:
     parser.add_argument(
         "--strategy",
         default="none",
-        choices=("none", "crossover"),
-        help="none (default) just publishes state; crossover runs the worked example",
+        choices=("none", "crossover", "desk"),
+        help="none (default) publishes state only; crossover is the worked "
+             "example; desk convenes the multi-agent desk (needs ANTHROPIC_API_KEY)",
     )
     args = parser.parse_args()
 
@@ -151,6 +174,10 @@ def main() -> int:
     if args.strategy == "crossover":
         strategy = Crossover(config.symbols)
         print(f"strategy: {strategy.name} (a worked example, not a recommendation)")
+    elif args.strategy == "desk":
+        strategy = build_desk(config, Journal(config.paths.journal))
+        print(f"strategy: desk, model {config.desk.get('model', 'claude-opus-5')}, "
+              f"at most {config.desk.get('max_runs_per_day', 24)} runs/day")
     else:
         print("strategy: none - publishing state only")
     history = PriceHistory()

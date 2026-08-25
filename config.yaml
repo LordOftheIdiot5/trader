@@ -47,3 +47,16 @@ paths:
   # deliberate human action; nothing in the bot clears it.
   halt: var/HALT
   publish: site/data/state.json
+
+# The multi-agent desk (--strategy desk). Four Claude calls per run: two
+# analysts in parallel, then the chair, then risk. Cadence is the cost control
+# that matters - at Opus 5 rates a run is roughly $0.10-0.20, so hourly is a
+# few dollars a day and every-five-minutes is not.
+desk:
+  model: claude-opus-5
+  min_minutes_between_runs: 60
+  max_runs_per_day: 24
+  # The chair weighs conflicting cases and is worth the effort; the analysts
+  # mostly report what they see.
+  analyst_effort: low
+  chair_effort: high

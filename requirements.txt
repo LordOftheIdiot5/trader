@@ -6,6 +6,9 @@ ccxt>=4.4.0
 # chosen by the base URL, so the same code path runs in both.
 alpaca-py>=0.33.0
 
+# The multi-agent desk. Only imported when that strategy is selected.
+anthropic>=0.75.0
+
 PyYAML>=6.0
 python-dotenv>=1.0.0
 

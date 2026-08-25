@@ -57,7 +57,23 @@ def publish(engine: Engine, destination: Path, push: bool) -> None:
         return
 
     root = destination.parent.parent.parent
+    payload = json.dumps(snapshot, indent=2)
     try:
+        # Rebuild on top of origin every time, rather than committing and
+        # hoping the push lands. A commit whose push fails used to stay behind,
+        # so the next failure stacked another one and the branch diverged
+        # permanently - after which nothing published again until a human
+        # intervened. The state file is derived and regenerated every tick, so
+        # discarding local commits of it loses nothing at all.
+        subprocess.run(["git", "fetch", "--quiet", "origin", "main"],
+                       cwd=root, check=True, capture_output=True)
+        subprocess.run(["git", "reset", "--hard", "--quiet", "origin/main"],
+                       cwd=root, check=True, capture_output=True)
+
+        # The reset just replaced the file with origin's copy; write ours back.
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(payload, encoding="utf-8")
+
         subprocess.run(["git", "add", str(destination)], cwd=root, check=True,
                        capture_output=True)
         staged = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=root)

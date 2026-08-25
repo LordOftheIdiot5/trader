@@ -22,12 +22,15 @@ fi
 
 git config --global --add safe.directory "$DIR" 2>/dev/null || true
 
-echo "==> pulling"
+echo "==> syncing to origin"
 before=$(git -C "$DIR" rev-parse --short HEAD)
-# The service commits state.json, so the tree is often dirty here. Stash it
-# rather than fail: that file is regenerated on the next tick anyway.
-git -C "$DIR" stash push --quiet -- site/data 2>/dev/null || true
-git -C "$DIR" pull --ff-only
+# Hard reset rather than pull. A deploy directory should mirror origin, and
+# the only tracked file the service changes is state.json, which it rewrites
+# on the next tick. Pulling fails outright once the service has a local commit
+# whose push did not land, which is exactly when you most want to deploy a fix.
+# var/, .env and .venv are untracked or ignored, so none of them are touched.
+git -C "$DIR" fetch --quiet origin main
+git -C "$DIR" reset --hard --quiet origin/main
 after=$(git -C "$DIR" rev-parse --short HEAD)
 echo "    $before -> $after"
 

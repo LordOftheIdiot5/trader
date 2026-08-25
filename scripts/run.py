@@ -67,10 +67,15 @@ def publish(engine: Engine, destination: Path, push: bool) -> None:
         # discarding local commits of it loses nothing at all.
         subprocess.run(["git", "fetch", "--quiet", "origin", "main"],
                        cwd=root, check=True, capture_output=True)
-        subprocess.run(["git", "reset", "--hard", "--quiet", "origin/main"],
+        # --mixed, not --hard. A hard reset rewrites every file in the working
+        # tree, and the service runs under ProtectSystem=strict where only var,
+        # site/data and .git are writable - so it fails on the first read-only
+        # path and publishes nothing. --mixed moves HEAD and the index (both
+        # inside .git) and leaves the working tree alone, which is all we need:
+        # the only file we intend to commit is the one we are about to write.
+        subprocess.run(["git", "reset", "--quiet", "--mixed", "origin/main"],
                        cwd=root, check=True, capture_output=True)
 
-        # The reset just replaced the file with origin's copy; write ours back.
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(payload, encoding="utf-8")
 

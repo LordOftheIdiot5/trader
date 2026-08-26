@@ -12,6 +12,7 @@ confidence. The gate does not care how well argued an oversized order was.
 
 from __future__ import annotations
 
+from ..desk import memory as desk_memory
 from ..desk.desk import DeskError, TradingDesk
 from ..risk import OrderIntent
 from ..strategy import Context
@@ -59,8 +60,13 @@ class DeskStrategy:
         if not snapshot["symbols"]:
             return []  # No prices this tick; nothing to convene about.
 
+        recalled = ""
+        if self.journal is not None:
+            digest = desk_memory.build(self.journal, context.positions, context.prices)
+            recalled = desk_memory.describe(digest)
+
         try:
-            result = self.desk.run(snapshot)
+            result = self.desk.run(snapshot, memory=recalled)
         except DeskError as error:
             self._note(f"desk did not reach a decision: {error}")
             return []
@@ -110,6 +116,7 @@ class DeskStrategy:
                     reference_price=price,
                     venue=context.venue,
                     strategy=self.name,
+                    rationale=decision.rationale,
                 )
             )
         return intents

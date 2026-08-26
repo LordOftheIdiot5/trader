@@ -73,3 +73,16 @@ desk:
   # only the price series, which is why it kept concluding, correctly, that
   # forty flat numbers are forty flat numbers.
   use_research: true
+  # Approval gate. When on, the desk raises a ticket instead of trading and
+  # nothing executes until a human approves it by id:
+  #     python scripts/approve.py            # see what is waiting
+  #     python scripts/approve.py T-4F2A     # approve one
+  # Defaults to on in live mode. Left off in paper so the desk can be observed
+  # end to end without someone having to sit with it.
+  require_approval: false
+  # An approval given after this many minutes is approving a price that no
+  # longer exists.
+  ticket_ttl_minutes: 30
+  # And even inside the window, the price is re-checked at execution. Past
+  # this much movement the ticket no longer describes the approved trade.
+  ticket_drift_bps: 100

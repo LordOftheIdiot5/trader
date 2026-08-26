@@ -39,6 +39,9 @@ class OrderIntent:
     reference_price: float
     venue: str
     strategy: str = "manual"
+    # Optional and unused by the gate. It exists so an approval ticket can
+    # show a human why, rather than asking them to authorise a bare order.
+    rationale: str = ""
 
     @property
     def notional(self) -> float:

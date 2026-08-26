@@ -180,7 +180,7 @@ class TradingDesk:
             raise DeskError("model returned no parseable output")
         return parsed
 
-    def run(self, snapshot: dict) -> DeskResult | None:
+    def run(self, snapshot: dict, memory: str = "") -> DeskResult | None:
         """Convene the desk. Returns None when the budget says not to."""
         allowed, why = self.budget.may_run()
         if not allowed:

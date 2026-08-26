@@ -30,9 +30,10 @@ from trader import config as config_module
 from trader import venues as venues_module
 from trader.engine import Engine
 from trader.journal import Journal
-from trader.risk import KillSwitch, RiskGuard
+from trader.risk import KillSwitch, OrderIntent, RiskGuard
 from trader.strategies.crossover import Crossover
 from trader.state import material_fingerprint
+from trader.tickets import EXECUTED, TicketBook
 from trader.strategy import Context, PriceHistory
 
 
@@ -138,7 +139,57 @@ def collect_prices(venue, symbols, history) -> dict[str, float]:
     return prices
 
 
-def tick(engine: Engine, config, strategy, history, history_path, push: bool) -> None:
+def gate_through_tickets(book, journal, intents, prices, venue):
+    """Raise a ticket for every intent, then execute only what a human approved.
+
+    Nothing proposed on this tick can execute on this tick, by design: the gap
+    between raising and approving is the whole point. Approved tickets from an
+    earlier tick are picked up here, re-checked against the current price, and
+    only then submitted.
+    """
+    for intent in intents:
+        ticket = book.raise_ticket(
+            symbol=intent.symbol, side=intent.side, quantity=intent.quantity,
+            reference_price=intent.reference_price,
+            rationale=intent.rationale or "(no rationale given)",
+            strategy=intent.strategy,
+        )
+        message = (f"ticket {ticket.id}: {ticket.side} {ticket.quantity} "
+                   f"{ticket.symbol} @ ~{ticket.reference_price} awaiting approval")
+        print(message)
+        journal.note(message, ticket=ticket.id)
+
+    for ticket in book.expire_stale():
+        journal.note(f"ticket {ticket.id} expired unapproved", ticket=ticket.id)
+
+    executable, drifted = book.ready(prices)
+    for ticket in drifted:
+        journal.note(f"ticket {ticket.id} not executed: {ticket.note}", ticket=ticket.id)
+
+    # Paired explicitly rather than by matching index into two lists, so a
+    # ticket can never be marked executed because of a different ticket's fill.
+    return [
+        (
+            OrderIntent(
+                symbol=ticket.symbol,
+                side=ticket.side,
+                quantity=ticket.quantity,
+                # Priced at the current market, not the price on the ticket.
+                # The ticket's price only had to survive the drift check; the
+                # order is sized against what the market says right now.
+                reference_price=prices[ticket.symbol],
+                venue=venue,
+                strategy=ticket.strategy,
+                rationale=ticket.rationale,
+            ),
+            ticket,
+        )
+        for ticket in executable
+    ]
+
+
+def tick(engine: Engine, config, strategy, history, history_path, push: bool,
+         book=None) -> None:
     if engine.guard.kill_switch.engaged:
         # Still publish while halted: a dashboard that goes stale during a
         # halt is exactly when you most want to see the reason.
@@ -159,10 +210,30 @@ def tick(engine: Engine, config, strategy, history, history_path, push: bool) ->
             venue=venue_name,
             history=history,
         )
-        for intent in strategy.decide(context):
-            # Every intent still goes through the gate. A strategy asking for
-            # something oversized gets refused and journalled, not obeyed.
-            engine.submit(intent)
+        intents = strategy.decide(context)
+        if book is not None:
+            # Approval gate: propose now, execute only what was approved
+            # earlier. The risk gate still runs afterwards either way - a
+            # human saying yes does not raise a cap.
+            paired = gate_through_tickets(
+                book, engine.journal, intents, prices, venue_name
+            )
+        else:
+            paired = [(intent, None) for intent in intents]
+
+        for intent, ticket in paired:
+            # Every intent still goes through the gate. Approval is not a
+            # permission to exceed a cap: a human saying yes to an oversized
+            # order still gets it refused here.
+            fill = engine.submit(intent)
+            if ticket is not None:
+                book.set_status(
+                    ticket.id,
+                    EXECUTED if fill else "rejected",
+                    "" if fill else "refused by risk limits after approval",
+                )
+        if book is not None:
+            book.prune()
 
     publish(engine, config.paths.publish, push)
 
@@ -208,13 +279,24 @@ def main() -> int:
     if len(history):
         print(f"history: restored {len(history)} symbols from {history_path.name}")
 
+    book = None
+    require = config.desk.get("require_approval", config.is_live)
+    if strategy is not None and require:
+        book = TicketBook(
+            path=config.paths.journal.parent / "tickets.json",
+            ttl_minutes=float(config.desk.get("ticket_ttl_minutes", 30)),
+            drift_tolerance_bps=float(config.desk.get("ticket_drift_bps", 100)),
+        )
+        print(f"approval required: tickets in {book.path}")
+        print("approve with: python scripts/approve.py <TICKET-ID>")
+
     if args.once:
-        tick(engine, config, strategy, history, history_path, args.push)
+        tick(engine, config, strategy, history, history_path, args.push, book)
         return 0
 
     while True:
         try:
-            tick(engine, config, strategy, history, history_path, args.push)
+            tick(engine, config, strategy, history, history_path, args.push, book)
         except Exception as error:
             # One bad tick must not take the process down; the next one may
             # succeed, and a dead process publishes nothing at all.

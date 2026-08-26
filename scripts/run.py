@@ -33,6 +33,7 @@ from trader.journal import Journal
 from trader.risk import KillSwitch, OrderIntent, RiskGuard
 from trader.strategies.crossover import Crossover
 from trader.state import material_fingerprint
+from trader.benchmark import Benchmark
 from trader.tickets import EXECUTED, TicketBook
 from trader.strategy import Context, PriceHistory
 
@@ -202,11 +203,20 @@ def tick(engine: Engine, config, strategy, history, history_path, push: bool,
         publish(engine, config.paths.publish, push)
         return
 
+    # Prices are collected on every tick, strategy or not. History and the
+    # benchmark both need to keep accruing in heartbeat mode - otherwise
+    # switching a strategy on later starts it blind, and the benchmark would
+    # only ever begin from whenever someone happened to enable trading.
+    venue_name = "paper" if not config.is_live else "crypto"
+    venue = engine.venues[venue_name]
+    prices = collect_prices(venue, config.symbols, history)
+    history.save(history_path)
+    engine.observe_prices(prices)
+    if engine.benchmark is not None and not engine.benchmark.started:
+        # Bought once, on the first tick with usable prices.
+        engine.benchmark.start(prices)
+
     if strategy is not None:
-        venue_name = "paper" if not config.is_live else "crypto"
-        venue = engine.venues[venue_name]
-        prices = collect_prices(venue, config.symbols, history)
-        history.save(history_path)
         context = Context(
             now=datetime.now(timezone.utc),
             prices=prices,
@@ -263,6 +273,12 @@ def main() -> int:
         venues=venues_module.build(config),
         guard=RiskGuard(config.limits, KillSwitch(config.paths.halt)),
         journal=Journal(config.paths.journal),
+        benchmark=Benchmark(
+            path=config.paths.journal.parent / "benchmark.json",
+            starting_cash=config.paper_starting_cash,
+            slippage_bps=config.paper_slippage_bps,
+            fee_bps=config.paper_fee_bps,
+        ),
     )
 
     banner = "LIVE - real money" if config.is_live else "paper"

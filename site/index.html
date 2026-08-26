@@ -28,6 +28,12 @@
     <div class="grid" id="today"></div>
   </section>
 
+  <section class="card" id="benchmarkCard" hidden>
+    <h2>Versus doing nothing</h2>
+    <div class="grid" id="benchmark"></div>
+    <p class="empty" id="benchmarkCaveat"></p>
+  </section>
+
   <section class="card">
     <h2>Limits</h2>
     <div class="grid" id="limits"></div>
@@ -101,6 +107,23 @@ function render(state) {
     stat("Loss limit", money(limits.daily_loss_limit)),
     stat("Shorting", limits.allow_short ? "enabled" : "disabled"),
   );
+
+  const mark = state.benchmark;
+  if (mark && mark.available) {
+    $("benchmarkCard").hidden = false;
+    const excess = mark.excess_return_pct;
+    $("benchmark").append(
+      stat("Strategy", `${mark.strategy_return_pct >= 0 ? "+" : ""}${mark.strategy_return_pct}%`),
+      stat("Buy & hold", `${mark.buy_and_hold_return_pct >= 0 ? "+" : ""}${mark.buy_and_hold_return_pct}%`),
+      // The only figure that answers "was any of this worth doing".
+      stat("Difference", `${excess >= 0 ? "+" : ""}${excess}%`,
+           mark.meaningful ? (excess < 0 ? "bad" : "good") : ""),
+      stat("Running", `${mark.days_running}d`),
+    );
+    // A short sample is noise wearing a percentage sign. Say so on the page
+    // rather than letting a green number speak for itself.
+    $("benchmarkCaveat").textContent = mark.caveat || `Basket: ${mark.basket.join(", ")}`;
+  }
 
   const venues = $("venues");
   for (const [name, venue] of Object.entries(state.venues || {})) {

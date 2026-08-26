@@ -21,12 +21,17 @@ class Engine:
         venues: dict[str, Venue],
         guard: RiskGuard,
         journal: Journal,
+        benchmark=None,
     ) -> None:
         if not venues:
             raise ValueError("no venues configured")
         self.venues = venues
         self.guard = guard
         self.journal = journal
+        # What doing nothing would have earned. Optional, so the engine still
+        # runs for anyone who has not set one up.
+        self.benchmark = benchmark
+        self._last_prices: dict[str, float] = {}
 
     def submit(self, intent: OrderIntent) -> Fill | None:
         """Send an order, or record why it was refused.
@@ -119,9 +124,26 @@ class Engine:
                 # A venue being down must show as down, not as flat.
                 venues[name] = {"reachable": False, "error": str(error)}
 
-        return {
+        snapshot = {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "risk": self.guard.snapshot(),
             "venues": venues,
             "recent": self.journal.entries(limit=50),
         }
+
+        if self.benchmark is not None:
+            # Compared against the venue the strategy actually trades on.
+            traded = self.venues.get("paper") or next(iter(self.venues.values()))
+            equity = getattr(traded, "equity", None)
+            if callable(equity):
+                try:
+                    snapshot["benchmark"] = self.benchmark.compare(
+                        equity(), self._last_prices
+                    )
+                except Exception as error:
+                    snapshot["benchmark"] = {"available": False, "reason": str(error)}
+        return snapshot
+
+    def observe_prices(self, prices: dict) -> None:
+        """Latest marks, used to value the benchmark at publish time."""
+        self._last_prices = dict(prices or {})

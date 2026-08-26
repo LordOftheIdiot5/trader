@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T01:40:19.591101+00:00",
+  "generated_at": "2026-08-26T02:41:35.336668+00:00",
   "risk": {
     "day": "2026-08-25",
     "orders_today": 0,
@@ -86,6 +86,18 @@
       "at": "2026-08-26T01:40:19.590734+00:00",
       "kind": "note",
       "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value=\"All six analysts concur ...s job today is to wait.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+    },
+    {
+      "at": "2026-08-26T02:41:35.336358+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 24581,
+        "output": 2087,
+        "cache_read": 0,
+        "calls": 9
+      }
     }
   ]
 }

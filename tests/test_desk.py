@@ -310,3 +310,62 @@ class TestUsageIsPerRun:
         desk.run({"symbols": {"BTC/USD": {}}})
         desk.run({"symbols": {"BTC/USD": {}}})
         assert desk.lifetime["calls"] == 2 * desk.usage["calls"]
+
+
+class TestResearchSeat:
+    """Research is an input, never a dependency. Every failure mode has to
+    leave the desk working exactly as it did before the seat existed."""
+
+    def _client_with_research(self, research_text="BTC: nothing material found."):
+        client = FakeClient(answers())
+        def create(**kwargs):
+            client.calls.append(kwargs)
+            return SimpleNamespace(
+                stop_reason="end_turn",
+                content=[SimpleNamespace(type="text", text=research_text)],
+            )
+        client.create = create
+        return client
+
+    def test_the_brief_reaches_every_seat(self):
+        client = self._client_with_research("XRP: court ruling published 2026-08-25.")
+        desk = TradingDesk(client, budget=DeskBudget(min_seconds_between_runs=0))
+        desk.run({"symbols": {"BTC/USD": {}}})
+
+        seat_calls = [c for c in client.calls if "output_format" in c]
+        assert seat_calls, "seats should still have run"
+        for call in seat_calls:
+            assert "court ruling published" in call["messages"][0]["content"]
+
+    def test_a_failing_search_does_not_stop_the_desk(self):
+        client = FakeClient(answers())
+        def boom(**kwargs):
+            raise RuntimeError("search backend down")
+        client.create = boom
+        desk = TradingDesk(client, budget=DeskBudget(min_seconds_between_runs=0))
+        result = desk.run({"symbols": {"BTC/USD": {}}})
+        assert result is not None and [d.symbol for d in result.decisions] == ["BTC/USD"]
+
+    def test_an_empty_brief_is_not_pasted_in(self):
+        client = self._client_with_research("")
+        desk = TradingDesk(client, budget=DeskBudget(min_seconds_between_runs=0))
+        desk.run({"symbols": {"BTC/USD": {}}})
+        for call in [c for c in client.calls if "output_format" in c]:
+            assert "research seat reports" not in call["messages"][0]["content"]
+
+    def test_research_can_be_switched_off(self):
+        client = self._client_with_research()
+        desk = TradingDesk(client, use_research=False,
+                           budget=DeskBudget(min_seconds_between_runs=0))
+        desk.run({"symbols": {"BTC/USD": {}}})
+        assert all("output_format" in c for c in client.calls), "no search call expected"
+
+    def test_the_search_tool_variant_follows_the_model(self):
+        from trader.desk.research import BASIC_SEARCH, MODERN_SEARCH, search_tool
+        # Sending the modern variant to Haiku is a hard error, not a downgrade.
+        assert search_tool("claude-haiku-4-5")["type"] == BASIC_SEARCH
+        assert search_tool("claude-opus-5")["type"] == MODERN_SEARCH
+
+    def test_searches_are_capped(self):
+        from trader.desk.research import search_tool
+        assert search_tool("claude-haiku-4-5")["max_uses"] <= 5

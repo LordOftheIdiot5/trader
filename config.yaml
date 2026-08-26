@@ -68,3 +68,8 @@ desk:
   # mostly report what they see.
   analyst_effort: low
   chair_effort: high
+  # The research seat searches the web for material news before the analysts
+  # look at anything. Costs one extra call per run. Without it the desk sees
+  # only the price series, which is why it kept concluding, correctly, that
+  # forty flat numbers are forty flat numbers.
+  use_research: true

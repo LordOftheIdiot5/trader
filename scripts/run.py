@@ -115,6 +115,7 @@ def build_desk(config, journal):
         ),
         analyst_effort=settings.get("analyst_effort", "low"),
         chair_effort=settings.get("chair_effort", "high"),
+        use_research=bool(settings.get("use_research", True)),
     )
     return DeskStrategy(desk, symbols=config.symbols, journal=journal)
 

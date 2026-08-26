@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T23:40:14.305936+00:00",
+  "generated_at": "2026-08-26T23:46:16.085291+00:00",
   "risk": {
     "day": "2026-08-26",
     "orders_today": 0,
@@ -305,6 +305,26 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-26T23:46:16.084933+00:00",
+      "kind": "note",
+      "message": "desk: The desk holds on BTC, ETH, XRP, LINK, and DOGE. All five show the 10-period above the 30-period, but lack the directional persistence required to trade. BTC oscillates despite the recent three-bar uptick; ETH has crowded long positioning with ambiguous price action; XRP, LINK, and DOGE all show late-window acceleration that does not yet constitute a confirmed trend. The research desk reported material news on BTC (ETF inflows), ETH (BlackRock captures 78% of inflows, SEC framework, Clarity Act progress), and SOL (BSOL at $1B cumulative inflows, bank collateral acceptance). SOL alone translates this into price structure: the 4.9% premium above the 30-period mean is supported by 12 bars of higher lows and higher highs, which meets the threshold for directional persistence. The technical analyst assigned conviction 3 to SOL and 1-2 to all others. We act on SOL at reduced size (0.15) to avoid crowding into a move that is only 10\u201312 bars old, and we hold everything else. No trade is better than a late trade into noise.",
+      "vetoed": null,
+      "usage": {
+        "input": 22089,
+        "output": 2559,
+        "cache_read": 0,
+        "calls": 5
+      }
+    },
+    {
+      "at": "2026-08-26T23:46:16.085227+00:00",
+      "kind": "rejected",
+      "symbol": "SOL/USD",
+      "side": "buy",
+      "quantity": 147.71048744,
+      "reason": "order notional 15,075.00 (incl. 50bps slippage) exceeds per-order cap 1,000.00"
     }
   ],
   "benchmark": {
@@ -319,11 +339,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 103386.07,
-    "buy_and_hold_return_pct": 3.39,
+    "buy_and_hold_value": 103639.05,
+    "buy_and_hold_return_pct": 3.64,
     "strategy_value": 100000.0,
     "strategy_return_pct": 0.0,
-    "excess_return_pct": -3.39,
+    "excess_return_pct": -3.64,
     "meaningful": false,
     "caveat": "only 0.3 days - too short to mean anything, treat any difference as noise until about 30"
   }

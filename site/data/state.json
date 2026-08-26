@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T10:51:07.590374+00:00",
+  "generated_at": "2026-08-26T11:52:26.053553+00:00",
   "risk": {
     "day": "2026-08-25",
     "orders_today": 0,
@@ -173,6 +173,18 @@
       "at": "2026-08-26T10:51:07.589989+00:00",
       "kind": "note",
       "message": "desk unavailable: 3 validation errors for ChairDecision\ndecisions.0.rationale\n  String should have at most 400 characters [type=string_too_long, input_value='BTC shows the strongest ...l range-bound behavior.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\ndecisions.1.rationale\n  String should have at most 400 characters [type=string_too_long, input_value='ETH meets similar criter... tighter range context.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value='The desk acts on BTC, ET...dity for adverse moves.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+    },
+    {
+      "at": "2026-08-26T11:52:26.053259+00:00",
+      "kind": "note",
+      "message": "desk: All six symbols are in range-bound, choppy consolidation with no clear directional character. The technical analyst has assigned conviction 1 to every holding recommendation\u2014rightly so. BTC, ETH, SOL, XRP, LINK, and DOGE all show prices oscillating within narrow bands, with recent means (10 and 30 period) offering no signal of sustained momentum in either direction. No support or resistance has been decisively broken; no trend has persisted through the last 40 observations. The desk has no open positions. There is nothing here to trade. Doing nothing is the correct answer.",
+      "vetoed": null,
+      "usage": {
+        "input": 91475,
+        "output": 5819,
+        "cache_read": 0,
+        "calls": 28
+      }
     }
   ]
 }

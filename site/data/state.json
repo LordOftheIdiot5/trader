@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T04:43:46.944682+00:00",
+  "generated_at": "2026-08-26T05:45:04.716802+00:00",
   "risk": {
     "day": "2026-08-25",
     "orders_today": 0,
@@ -122,6 +122,11 @@
         "cache_read": 0,
         "calls": 13
       }
+    },
+    {
+      "at": "2026-08-26T05:45:04.716540+00:00",
+      "kind": "note",
+      "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value='All six symbols show cho... No trade is warranted.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
     }
   ]
 }

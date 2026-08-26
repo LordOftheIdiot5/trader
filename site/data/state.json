@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T11:52:26.053553+00:00",
+  "generated_at": "2026-08-26T12:53:32.174377+00:00",
   "risk": {
     "day": "2026-08-25",
     "orders_today": 0,
@@ -184,6 +184,18 @@
         "output": 5819,
         "cache_read": 0,
         "calls": 28
+      }
+    },
+    {
+      "at": "2026-08-26T12:53:32.174090+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 98406,
+        "output": 5836,
+        "cache_read": 0,
+        "calls": 30
       }
     }
   ]

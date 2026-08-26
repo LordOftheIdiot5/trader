@@ -1,21 +1,21 @@
 """Runs the desk: analysts in parallel, then the chair, then the risk seat.
 
-Four API calls per run, which is the whole cost story. At Claude Opus 5 rates
-a run lands around $0.10-0.20 depending on how much history is in the
-snapshot, so cadence is the control that matters:
-
-    every 5 minutes  ->  288 runs/day  ->  roughly $30-60/day
-    hourly           ->   24 runs/day  ->  roughly  $3-5/day
+At most four API calls per run, and usually two: when no analyst has a view -
+which is most runs in a quiet market - the chair and risk seats are never
+asked. Measured on Haiku 4.5 with six symbols, a quiet run is about a third of
+a cent and a full one about $0.013.
 
 The engine ticks far more often than the desk should run. `DeskBudget` below
 enforces both a minimum gap between runs and a hard daily ceiling, and the
 ceiling is checked before the first call rather than after the fourth.
 
-Caching: each seat's brief is a frozen system prompt marked with
-cache_control, so repeated runs re-read those tokens at roughly a tenth of the
-price. The market snapshot goes in the user message, after the cached prefix -
-putting the clock or the prices in the system prompt would invalidate the
-cache on every single call and quietly undo the saving.
+On caching: each brief is marked cacheable, but they run about 700 tokens each
+against a minimum cacheable prefix of roughly 1024, so in practice the cache
+does not engage - observed cache_read has been zero across every run so far.
+It is left in place because it costs nothing and starts working if the briefs
+grow. It is not where the money goes: output tokens are, by roughly two to
+one. The snapshot still belongs in the user turn regardless, since a price in
+the system prompt would invalidate the prefix on every call.
 """
 
 from __future__ import annotations
@@ -113,7 +113,11 @@ class TradingDesk:
         # The chair is the seat that has to weigh conflicting cases, so it is
         # the one worth spending effort on. Analysts mostly report.
         self.chair_effort = chair_effort
+        # Per-run, reset each time run() is called. The journal entry for a
+        # run should say what that run cost; a lifetime counter reads like a
+        # runaway loop when it is really fourteen quiet runs added up.
         self._usage = {"input": 0, "output": 0, "cache_read": 0, "calls": 0}
+        self.lifetime = {"input": 0, "output": 0, "cache_read": 0, "calls": 0}
 
     def _request_extras(self, effort: str) -> dict:
         """Parameters that only some models accept.
@@ -153,11 +157,14 @@ class TradingDesk:
         )
 
         usage = getattr(response, "usage", None)
+        counted = {"calls": 1}
         if usage is not None:
-            self._usage["input"] += getattr(usage, "input_tokens", 0) or 0
-            self._usage["output"] += getattr(usage, "output_tokens", 0) or 0
-            self._usage["cache_read"] += getattr(usage, "cache_read_input_tokens", 0) or 0
-        self._usage["calls"] += 1
+            counted["input"] = getattr(usage, "input_tokens", 0) or 0
+            counted["output"] = getattr(usage, "output_tokens", 0) or 0
+            counted["cache_read"] = getattr(usage, "cache_read_input_tokens", 0) or 0
+        for key, value in counted.items():
+            self._usage[key] = self._usage.get(key, 0) + value
+            self.lifetime[key] = self.lifetime.get(key, 0) + value
 
         # A refusal is a 200 with no usable content. Treat it as "no opinion"
         # rather than letting a None reach the caller as a decision.
@@ -176,6 +183,7 @@ class TradingDesk:
             return None
 
         self.budget.record_run()
+        self._usage = {"input": 0, "output": 0, "cache_read": 0, "calls": 0}
         market = json.dumps(snapshot, indent=2, default=str)
         prompt = (
             "Here is the current market snapshot and the desk's book.\n\n"

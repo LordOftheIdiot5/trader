@@ -269,3 +269,44 @@ class TestModelCompatibility:
 
     def test_the_model_reaches_the_api_call(self):
         assert self._params_for("claude-haiku-4-5")["model"] == "claude-haiku-4-5"
+
+
+class TestNoLengthConstraints:
+    """A max_length on a response field is validated after the model has been
+    paid for. Two live runs were discarded over a summary one character long,
+    so these guard against reintroducing the constraint."""
+
+    def test_no_response_field_caps_length(self):
+        from trader.desk import schema as s
+        for model in (s.View, s.Decision, s.ChairDecision, s.RiskRuling):
+            for name, field in model.model_fields.items():
+                caps = [m for m in field.metadata if hasattr(m, "max_length")]
+                assert not caps, f"{model.__name__}.{name} caps length"
+
+    def test_a_long_summary_parses(self):
+        from trader.desk.schema import ChairDecision
+        decision = ChairDecision(decisions=[], summary="x" * 5000)
+        assert len(decision.summary) == 5000
+
+    def test_a_long_rationale_parses(self):
+        from trader.desk.schema import Decision
+        d = Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.1,
+                     rationale="y" * 3000)
+        assert len(d.rationale) == 3000
+
+
+class TestUsageIsPerRun:
+    def test_a_second_run_does_not_inherit_the_first_run_count(self):
+        # A lifetime counter in the journal reads like a runaway loop.
+        client = FakeClient(answers())
+        desk = TradingDesk(client, budget=DeskBudget(min_seconds_between_runs=0))
+        first = desk.run({"symbols": {"BTC/USD": {}}}).usage["calls"]
+        second = desk.run({"symbols": {"BTC/USD": {}}}).usage["calls"]
+        assert first == second, "usage must be per-run, not cumulative"
+
+    def test_lifetime_still_accumulates(self):
+        client = FakeClient(answers())
+        desk = TradingDesk(client, budget=DeskBudget(min_seconds_between_runs=0))
+        desk.run({"symbols": {"BTC/USD": {}}})
+        desk.run({"symbols": {"BTC/USD": {}}})
+        assert desk.lifetime["calls"] == 2 * desk.usage["calls"]

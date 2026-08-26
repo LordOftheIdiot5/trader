@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T09:49:40.235406+00:00",
+  "generated_at": "2026-08-26T10:51:07.590374+00:00",
   "risk": {
     "day": "2026-08-25",
     "orders_today": 0,
@@ -168,6 +168,11 @@
       "at": "2026-08-26T09:49:40.234966+00:00",
       "kind": "note",
       "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value=\"The technical analyst ha...irmed downtrends. Hold.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+    },
+    {
+      "at": "2026-08-26T10:51:07.589989+00:00",
+      "kind": "note",
+      "message": "desk unavailable: 3 validation errors for ChairDecision\ndecisions.0.rationale\n  String should have at most 400 characters [type=string_too_long, input_value='BTC shows the strongest ...l range-bound behavior.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\ndecisions.1.rationale\n  String should have at most 400 characters [type=string_too_long, input_value='ETH meets similar criter... tighter range context.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value='The desk acts on BTC, ET...dity for adverse moves.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
     }
   ]
 }

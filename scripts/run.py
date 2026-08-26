@@ -118,7 +118,12 @@ def build_desk(config, journal):
         chair_effort=settings.get("chair_effort", "high"),
         use_research=bool(settings.get("use_research", True)),
     )
-    return DeskStrategy(desk, symbols=config.symbols, journal=journal)
+    perps = None
+    if settings.get("use_perp_context", True):
+        from trader.adapters.perps import PerpContext
+
+        perps = PerpContext()
+    return DeskStrategy(desk, symbols=config.symbols, journal=journal, perps=perps)
 
 
 def collect_prices(venue, symbols, history) -> dict[str, float]:

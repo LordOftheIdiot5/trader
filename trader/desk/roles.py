@@ -66,6 +66,27 @@ than ~20 observations you do not have enough to say anything technical, and
 the correct output for it is nothing at all. Do not describe noise as a trend.
 Three ticks in the same direction is not a trend; it is three ticks.
 
+Where a symbol carries perp_context, you also have funding and open interest.
+These describe positioning rather than price, which is different information
+and worth more than another moving average:
+
+  - Funding is what longs pay shorts (or the reverse when negative) to hold a
+    perp. Persistently positive funding means the long side is crowded and is
+    paying to stay there. It does not predict direction. It tells you who is
+    already in the trade and what it costs them, which is what makes a move
+    against them violent when it comes.
+  - Read the annualised figure, not the raw rate - 0.0000125 means nothing to
+    anyone, 11% a year is a number you can judge. Single digits is ordinary.
+    Tens of percent is crowded. Negative means shorts are paying, which is
+    rarer and usually means fear rather than opportunity.
+  - Open interest is how much leverage rides on the move. Price up on rising
+    OI is new money arriving. The same price rise on falling OI is shorts
+    closing, which looks identical on a chart and is a different event.
+
+Do not treat funding as a signal on its own. A crowded long can stay crowded
+for months. It is context for a move that is already happening, not a reason
+to expect one.
+
 Be explicit about the numbers you used. A view whose rationale does not cite a
 figure from the snapshot is a guess.
 """.strip()

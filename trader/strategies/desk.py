@@ -12,6 +12,7 @@ confidence. The gate does not care how well argued an oversized order was.
 
 from __future__ import annotations
 
+from ..adapters.perps import PerpContext
 from ..desk import memory as desk_memory
 from ..desk.desk import DeskError, TradingDesk
 from ..risk import OrderIntent
@@ -23,8 +24,14 @@ HISTORY_POINTS = 40
 
 
 class DeskStrategy:
-    def __init__(self, desk: TradingDesk, symbols: tuple[str, ...], journal=None) -> None:
+    def __init__(self, desk: TradingDesk, symbols: tuple[str, ...], journal=None,
+                 perps: PerpContext | None = None) -> None:
         self.name = "desk"
+        # Positioning data. Off unless a context is handed in: a default that
+        # reaches the network turns every construction into an HTTP call, which
+        # made the test suite take two minutes and hit a public endpoint
+        # hundreds of times. Production wires one in explicitly.
+        self.perps = perps
         self.desk = desk
         self.symbols = symbols
         # The desk's reasoning is the main artefact it produces. Losing it
@@ -48,6 +55,12 @@ class DeskStrategy:
                 "held_quantity": held.quantity if held else 0,
                 "average_entry_price": held.average_price if held else None,
             }
+            # Funding and open interest describe positioning rather than
+            # price, which is the one thing the desk could not see before.
+            if self.perps is not None:
+                context_data = self.perps.for_symbol(symbol)
+                if context_data:
+                    symbols[symbol]["perp_context"] = context_data
         return {
             "as_of": context.now.isoformat(),
             "cash_available": round(context.cash, 2),

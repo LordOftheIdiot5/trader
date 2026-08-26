@@ -369,3 +369,42 @@ class TestResearchSeat:
     def test_searches_are_capped(self):
         from trader.desk.research import search_tool
         assert search_tool("claude-haiku-4-5")["max_uses"] <= 5
+
+
+class TestPerpContext:
+    """Positioning data is a bonus. Every failure has to leave the desk
+    working exactly as it did without it."""
+
+    def test_a_stock_ticker_has_no_perp(self):
+        from trader.adapters.perps import to_perp
+        assert to_perp("AAPL") is None
+        assert to_perp("EQNR.OL") is None
+
+    def test_a_pair_maps_to_the_perp_symbol(self):
+        from trader.adapters.perps import to_perp
+        assert to_perp("BTC/USD") == "BTC/USDC:USDC"
+        assert to_perp("doge/usd") == "DOGE/USDC:USDC"
+
+    def test_a_failing_feed_returns_nothing_rather_than_raising(self):
+        from trader.adapters.perps import PerpContext
+        p = PerpContext()
+        p._fetch = lambda perp: (_ for _ in ()).throw(RuntimeError("down"))
+        assert p.for_symbol("BTC/USD") == {}
+
+    def test_results_are_cached(self):
+        from trader.adapters.perps import PerpContext
+        p = PerpContext(cache_seconds=600)
+        calls = []
+        p._fetch = lambda perp: calls.append(perp) or {"funding_rate": 1e-5}
+        p.for_symbol("BTC/USD")
+        p.for_symbol("BTC/USD")
+        assert len(calls) == 1, "funding settles hourly; do not refetch every tick"
+
+    def test_the_snapshot_survives_a_dead_perp_feed(self):
+        from trader.adapters.perps import PerpContext
+        p = PerpContext()
+        p._fetch = lambda perp: {}
+        strategy = DeskStrategy(TradingDesk(client=None), symbols=("BTC/USD",), perps=p)
+        snap = strategy._snapshot(context())
+        assert "BTC/USD" in snap["symbols"]
+        assert "perp_context" not in snap["symbols"]["BTC/USD"]

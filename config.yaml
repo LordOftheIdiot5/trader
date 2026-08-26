@@ -73,6 +73,10 @@ desk:
   # only the price series, which is why it kept concluding, correctly, that
   # forty flat numbers are forty flat numbers.
   use_research: true
+  # Funding rate and open interest from Hyperliquid's public API. Free, no
+  # account, and the first thing the desk sees that is about positioning
+  # rather than price.
+  use_perp_context: true
   # Approval gate. When on, the desk raises a ticket instead of trading and
   # nothing executes until a human approves it by id:
   #     python scripts/approve.py            # see what is waiting

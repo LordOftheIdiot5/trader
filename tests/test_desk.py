@@ -56,7 +56,7 @@ def view(symbol="BTC/USD", stance="buy", conviction=4):
 
 def answers(decisions=None, approved=None, vetoed=None):
     decisions = decisions if decisions is not None else [
-        Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.1,
+        Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.05,
                  rationale="Both seats agree, sized small.")
     ]
     return {
@@ -185,8 +185,8 @@ class TestDeskStrategy:
     def test_a_buy_is_sized_as_a_fraction_of_cash(self):
         [intent] = self._strategy().decide(context(cash=10_000.0))
         assert intent.side == "buy"
-        # 10% of 10,000 at 139.
-        assert intent.quantity == pytest.approx(1000 / 139, rel=1e-6)
+        # 5% of 10,000 at 139.
+        assert intent.quantity == pytest.approx(500 / 139, rel=1e-6)
         assert intent.strategy == "desk"
 
     def test_a_sell_closes_the_whole_position(self):
@@ -231,7 +231,7 @@ class TestDeskStrategy:
     def test_a_symbol_with_no_price_is_skipped_not_guessed(self):
         strategy = self._strategy(answers(
             decisions=[Decision(symbol="DOGE/USD", action="buy",
-                                fraction_of_cash=0.1, rationale="Hallucinated.")]
+                                fraction_of_cash=0.05, rationale="Hallucinated.")]
         ))
         assert strategy.decide(context()) == []
 
@@ -290,7 +290,7 @@ class TestNoLengthConstraints:
 
     def test_a_long_rationale_parses(self):
         from trader.desk.schema import Decision
-        d = Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.1,
+        d = Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.05,
                      rationale="y" * 3000)
         assert len(d.rationale) == 3000
 
@@ -408,3 +408,31 @@ class TestPerpContext:
         snap = strategy._snapshot(context())
         assert "BTC/USD" in snap["symbols"]
         assert "perp_context" not in snap["symbols"]["BTC/USD"]
+
+
+class TestSizingFitsUnderTheRiskCap:
+    """The failure that cost a day: the desk's largest sensible order was ten
+    times the per-order cap, so every decision it made was refused and it
+    looked like a strategy with no opinions."""
+
+    def test_the_schema_ceiling_leaves_room_for_slippage(self):
+        from trader import config as config_module
+        from trader.desk.schema import Decision
+
+        cfg = config_module.load()
+        ceiling = [m for m in Decision.model_fields["fraction_of_cash"].metadata
+                   if hasattr(m, "le")][0].le
+        largest = (cfg.paper_starting_cash * float(ceiling)
+                   * (1 + cfg.limits.slippage_bps / 10_000))
+        assert largest <= cfg.limits.max_order_notional, (
+            f"the desk's largest order ({largest:,.0f}) exceeds the per-order "
+            f"cap ({cfg.limits.max_order_notional:,.0f}); every high-conviction "
+            "trade would be refused"
+        )
+
+    def test_a_fraction_above_the_ceiling_is_rejected(self):
+        import pydantic
+        from trader.desk.schema import Decision
+        with pytest.raises(pydantic.ValidationError):
+            Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.5,
+                     rationale="all in")

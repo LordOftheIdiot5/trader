@@ -17,11 +17,18 @@ paper:
 
 # Hard caps. Every one is a refusal, not a warning. Sized for a first run;
 # raise them deliberately, once you have watched the thing behave.
+# Expressed as percentages of the account, not fixed amounts. An absolute cap
+# written for one account size silently becomes nonsense against another: this
+# ran for a day with a 1,000 per-order cap against a 100,000 account, so every
+# order the desk produced was refused and it looked like a strategy with no
+# opinions rather than a misconfigured gate.
+#
+# Absolute overrides still work - set max_order_notional and it wins.
 risk:
-  max_order_notional: 1000      # biggest single order, quote currency
-  max_daily_notional: 5000      # total traded per UTC day
+  max_order_pct: 10             # biggest single order, % of account
+  max_daily_pct: 30             # total traded per UTC day, % of account
   max_open_positions: 5
-  daily_loss_limit: 250         # realised loss that trips the kill switch
+  daily_loss_pct: 5             # realised loss that trips the kill switch
   allow_short: false
   # Caps are checked against a fill this much worse than the quote, so a
   # market order cannot slip past a limit it nominally fits under.

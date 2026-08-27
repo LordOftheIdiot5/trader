@@ -56,10 +56,13 @@ class Decision(BaseModel):
     action: Stance
     fraction_of_cash: float = Field(
         ge=0.0,
-        le=0.25,
+        le=0.08,
         description="For a buy: the share of available cash to commit, at most "
-        "0.25. Ignored for sell (which always closes the whole position) and "
-        "hold. Sizing is a fraction so a smaller account bets smaller.",
+        "0.08. This ceiling is deliberately set to match the risk gate's "
+        "per-order cap - a strategy whose largest sensible order is refused by "
+        "construction looks like one with no opinions. Ignored for sell (which "
+        "always closes the whole position) and hold. Sizing is a fraction so a "
+        "smaller account bets smaller.",
     )
     rationale: str = Field(description="Why this trade, in one or two sentences.")
 

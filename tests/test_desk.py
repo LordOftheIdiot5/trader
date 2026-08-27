@@ -415,24 +415,32 @@ class TestSizingFitsUnderTheRiskCap:
     times the per-order cap, so every decision it made was refused and it
     looked like a strategy with no opinions."""
 
-    def test_the_schema_ceiling_leaves_room_for_slippage(self):
-        from trader import config as config_module
+    def test_an_oversized_fraction_is_clamped_not_discarded(self):
+        # The chair regularly asks for more than the ceiling. Validating it
+        # away would throw out a whole run of reasoning over one number.
+        from trader.strategies.desk import MAX_FRACTION
+        strategy = DeskStrategy(
+            TradingDesk(FakeClient(answers(decisions=[
+                Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.50,
+                         rationale="conviction 5"),
+            ])), budget=DeskBudget(min_seconds_between_runs=0)),
+            symbols=("BTC/USD",),
+        )
+        [intent] = strategy.decide(context(cash=10_000.0))
+        assert intent.quantity == pytest.approx(10_000 * MAX_FRACTION / 139, rel=1e-6)
+
+    def test_the_schema_does_not_cap_the_fraction(self):
+        # An le= here would discard the response instead of reducing the size.
         from trader.desk.schema import Decision
+        big = Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.9,
+                       rationale="parses fine, gets clamped later")
+        assert big.fraction_of_cash == 0.9
+
+    def test_the_clamp_fits_under_the_risk_cap(self):
+        from trader import config as config_module
+        from trader.strategies.desk import MAX_FRACTION
 
         cfg = config_module.load()
-        ceiling = [m for m in Decision.model_fields["fraction_of_cash"].metadata
-                   if hasattr(m, "le")][0].le
-        largest = (cfg.paper_starting_cash * float(ceiling)
+        largest = (cfg.paper_starting_cash * MAX_FRACTION
                    * (1 + cfg.limits.slippage_bps / 10_000))
-        assert largest <= cfg.limits.max_order_notional, (
-            f"the desk's largest order ({largest:,.0f}) exceeds the per-order "
-            f"cap ({cfg.limits.max_order_notional:,.0f}); every high-conviction "
-            "trade would be refused"
-        )
-
-    def test_a_fraction_above_the_ceiling_is_rejected(self):
-        import pydantic
-        from trader.desk.schema import Decision
-        with pytest.raises(pydantic.ValidationError):
-            Decision(symbol="BTC/USD", action="buy", fraction_of_cash=0.5,
-                     rationale="all in")
+        assert largest <= cfg.limits.max_order_notional

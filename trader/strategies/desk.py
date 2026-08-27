@@ -18,6 +18,11 @@ from ..desk.desk import DeskError, TradingDesk
 from ..risk import OrderIntent
 from ..strategy import Context
 
+# The most of the account a single desk order may commit. Chosen to sit under
+# the risk gate's per-order cap once its assumed slippage is added, so a
+# maximum-conviction trade is sized to pass rather than to be refused.
+MAX_FRACTION = 0.08
+
 # How much history to show. Enough for a moving average to mean something,
 # short enough that the snapshot does not dominate the token bill.
 HISTORY_POINTS = 40
@@ -110,7 +115,16 @@ class DeskStrategy:
                 continue
 
             if decision.action == "buy":
-                budget = context.cash * decision.fraction_of_cash
+                # Clamped, not rejected. The chair regularly asks for more than
+                # the ceiling; reducing the size keeps the reasoning and the
+                # trade, where validating it away would discard both.
+                fraction = min(decision.fraction_of_cash, MAX_FRACTION)
+                if fraction < decision.fraction_of_cash:
+                    self._note(
+                        f"desk asked for {decision.fraction_of_cash:.2f} of cash "
+                        f"on {symbol}, clamped to {fraction:.2f}"
+                    )
+                budget = context.cash * fraction
                 quantity = budget / price
                 if quantity <= 0:
                     continue

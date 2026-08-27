@@ -65,7 +65,11 @@ class Ticket:
     @property
     def expired(self) -> bool:
         try:
-            return _now() > datetime.fromisoformat(self.expires_at)
+            # >= rather than >, so an expiry exactly equal to now counts as
+            # expired. Fail closed on the boundary: the cost is one skipped
+            # trade, and the alternative is a race whose outcome depends on
+            # microseconds.
+            return _now() >= datetime.fromisoformat(self.expires_at)
         except (TypeError, ValueError):
             # An unparseable expiry is treated as expired. Failing closed on a
             # corrupt ticket costs one skipped trade; failing open executes an

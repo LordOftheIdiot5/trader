@@ -5,6 +5,12 @@ human reading the journal later, but the *decision* has to be a value the
 engine can act on without parsing English. Anything the model says outside
 these fields is commentary.
 
+Sizing is asked for in the description and clamped in code rather than
+constrained here, for the same reason lengths are. An le= on this field would
+have thrown away a complete decision because the chair asked for 0.12 when the
+ceiling was 0.08 - a whole run of reasoning discarded over a number that could
+simply have been reduced. The cap is not optional; where it is enforced is.
+
 Length is asked for in the descriptions but never enforced as a constraint.
 A max_length here is validated after the model has already been paid for, so
 a summary one character over the limit threw away the entire run - four calls,
@@ -56,13 +62,10 @@ class Decision(BaseModel):
     action: Stance
     fraction_of_cash: float = Field(
         ge=0.0,
-        le=0.08,
-        description="For a buy: the share of available cash to commit, at most "
-        "0.08. This ceiling is deliberately set to match the risk gate's "
-        "per-order cap - a strategy whose largest sensible order is refused by "
-        "construction looks like one with no opinions. Ignored for sell (which "
-        "always closes the whole position) and hold. Sizing is a fraction so a "
-        "smaller account bets smaller.",
+        description="For a buy: the share of available cash to commit. Keep it "
+        "at or below 0.08; anything larger is clamped to that before the order "
+        "is built. Ignored for sell (which always closes the whole position) "
+        "and hold. Sizing is a fraction so a smaller account bets smaller.",
     )
     rationale: str = Field(description="Why this trade, in one or two sentences.")
 

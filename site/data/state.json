@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-27T15:16:58.061912+00:00",
+  "generated_at": "2026-08-27T15:23:02.526087+00:00",
   "risk": {
     "day": "2026-08-27",
-    "orders_today": 1,
-    "notional_today": 6013.39,
-    "realised_pnl_today": 0.0,
+    "orders_today": 2,
+    "notional_today": 12094.76,
+    "realised_pnl_today": 67.98,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,36 +18,21 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 93980.6,
-      "equity": 100065.22,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 56.791292,
-          "average_price": 105.88578
-        }
-      }
+      "cash": 100055.89,
+      "equity": 100055.89,
+      "positions": {}
     },
     "alpaca": {
       "reachable": true,
-      "cash": 93980.6,
-      "equity": 100065.22,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 56.791292,
-          "average_price": 105.88578
-        }
-      }
+      "cash": 100055.89,
+      "equity": 100055.89,
+      "positions": {}
     },
     "crypto": {
       "reachable": true,
-      "cash": 93980.6,
-      "equity": 100065.22,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 56.791292,
-          "average_price": 105.88578
-        }
-      }
+      "cash": 100055.89,
+      "equity": 100055.89,
+      "positions": {}
     }
   },
   "recent": [
@@ -509,6 +494,19 @@
       "fee": 6.01339025062776,
       "notional": 6013.39,
       "strategy": "desk"
+    },
+    {
+      "at": "2026-08-27T15:23:02.525891+00:00",
+      "kind": "fill",
+      "order_id": "paper-2",
+      "venue": "paper",
+      "symbol": "SOL/USD",
+      "side": "sell",
+      "quantity": 56.791292,
+      "price": 107.08281,
+      "fee": 6.08137113089052,
+      "notional": 6081.37,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
@@ -523,11 +521,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 106160.61,
-    "buy_and_hold_return_pct": 6.16,
-    "strategy_value": 100068.05,
-    "strategy_return_pct": 0.07,
-    "excess_return_pct": -6.09,
+    "buy_and_hold_value": 106124.12,
+    "buy_and_hold_return_pct": 6.12,
+    "strategy_value": 100055.89,
+    "strategy_return_pct": 0.06,
+    "excess_return_pct": -6.07,
     "meaningful": false,
     "caveat": "only 1.0 days - too short to mean anything, treat any difference as noise until about 30"
   }

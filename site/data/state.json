@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-08-27T00:28:11.385320+00:00",
+  "generated_at": "2026-08-27T00:33:48.703211+00:00",
   "risk": {
-    "day": "2026-08-26",
+    "day": "2026-08-27",
     "orders_today": 0,
     "notional_today": 0.0,
     "realised_pnl_today": 0.0,
     "halted": false,
     "halt_reason": null,
     "limits": {
-      "max_order_notional": 1000.0,
-      "max_daily_notional": 5000.0,
+      "max_order_notional": 10000.0,
+      "max_daily_notional": 30000.0,
       "max_open_positions": 5,
-      "daily_loss_limit": 250.0,
+      "daily_loss_limit": 5000.0,
       "allow_short": false
     }
   },
@@ -325,12 +325,24 @@
       "side": "buy",
       "quantity": 147.71048744,
       "reason": "order notional 15,075.00 (incl. 50bps slippage) exceeds per-order cap 1,000.00"
+    },
+    {
+      "at": "2026-08-27T00:33:48.702991+00:00",
+      "kind": "note",
+      "message": "desk: The technical analyst calls a conviction-3 sell on SOL/USD citing momentum loss\u2014price dropped 1.26% from the recent intrabar high, now trading below its 10-period mean after a 4.1% rally, with elevated open interest suggesting leveraged unwind. However, the research seat reports a mixed signal: the Bitwise Solana Staking ETF crossed $1B in inflows and a major bank began accepting it as collateral (structural support), but SOL itself declined 4.57% in 24 hours, materially outpacing Bitcoin and Ethereum declines. This divergence\u2014strong product adoption and collateral acceptance against weak spot price action\u2014is a red flag for the momentum call. The technical view is anchored on a near-term pullback within a week-long rally, not on a broken structure. A 1.26% decay after reaching 102.31 is reversion to mean, not momentum death. The strongest case against selling: the research backdrop includes institutional adoption signals that typically precede price discovery, and conviction should reflect the fact that we have no view of what happens next. The XRP call is appropriately a hold at conviction 1\u2014the analyst correctly identified noise. With no positions open and no sufficiently high-conviction edge, the desk does nothing. Returning to market next period is the right answer most of the time, and this is one of those times.",
+      "vetoed": null,
+      "usage": {
+        "input": 13898,
+        "output": 683,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 0.38,
+    "days_running": 0.39,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -339,11 +351,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 103147.73,
-    "buy_and_hold_return_pct": 3.15,
+    "buy_and_hold_value": 103048.98,
+    "buy_and_hold_return_pct": 3.05,
     "strategy_value": 100000.0,
     "strategy_return_pct": 0.0,
-    "excess_return_pct": -3.15,
+    "excess_return_pct": -3.05,
     "meaningful": false,
     "caveat": "only 0.4 days - too short to mean anything, treat any difference as noise until about 30"
   }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T16:47:40.190502+00:00",
+  "generated_at": "2026-08-28T16:53:34.261728+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,11 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-26T09:49:40.234966+00:00",
-      "kind": "note",
-      "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value=\"The technical analyst ha...irmed downtrends. Hold.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
-    },
     {
       "at": "2026-08-26T10:51:07.589989+00:00",
       "kind": "note",
@@ -623,12 +618,24 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-28T16:53:34.261484+00:00",
+      "kind": "note",
+      "message": "desk: The technical analyst has identified weakness across most names but with low-to-mixed conviction. BTC shows a bearish crossover (10-mean below 30-mean) but the price action is choppy consolidation, not a clean trend\u2014conviction 2, insufficient to act. ETH is noise around a level at the 10-mean, conviction 1. SOL is churning with no persistence despite the governance event, conviction 1. XRP is the only setup with any structure: a 2.8% downtrend over 20 observations, price now below the 10-mean (1.39558), with crowded long funding at 10.95% annualized. However, the 10-mean is only 0.00055 above price\u2014a single 0.5% bounce invalidates it, making this a young and fragile setup. LINK and DOGE are drifting with collapsed volatility and no conviction. The research backdrop (ETF flows, institutional buying in BTC and ETH, Solana governance vote) is already priced into recent levels and does not alter the technical picture. No symbol offers sufficient technical clarity, structural strength, or independent confirmation to justify entry at conviction above 2. The XRP setup is the tightest case but is too shallow and reversible to risk capital on. The correct decision is to hold cash and wait for either a cleaner signal or a meaningful price move to establish trend. Activity for its own sake is the enemy of returns.",
+      "vetoed": null,
+      "usage": {
+        "input": 15263,
+        "output": 1751,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 2.06,
+    "days_running": 2.07,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -637,11 +644,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102729.84,
-    "buy_and_hold_return_pct": 2.73,
+    "buy_and_hold_value": 102708.17,
+    "buy_and_hold_return_pct": 2.71,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -2.79,
+    "excess_return_pct": -2.77,
     "meaningful": false,
     "caveat": "only 2.1 days - too short to mean anything, treat any difference as noise until about 30"
   }

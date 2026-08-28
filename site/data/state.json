@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T23:07:38.623063+00:00",
+  "generated_at": "2026-08-28T23:13:11.764371+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,18 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-26T14:49:04.758729+00:00",
-      "kind": "note",
-      "message": "desk: The technical desk has found no tradeable setup across all six symbols. All positions show oscillatory, mean-reverting behavior with price hovering within 1% of both 10- and 30-period means. Conviction across the board is 1\u20132, which falls below the threshold for action. The research context\u2014ETF inflows into BTC and ETH, Solana's upgrade, and broad macro tailwinds\u2014is noted but already reflected in price; none of it provides a technical edge or identifies an asymmetric opportunity in the current snapshot. SOL, XRP, LINK, and DOGE all have conviction-1 views due to insufficient directional clarity in the recent window. BTC and ETH show conviction-2 holds, but 'price is within noise of moving averages' is not a reason to buy or sell. The desk correctly identifies that range breaks would invalidate these holds, but we do not yet have them. No position is warranted. This is the correct and expected outcome.",
-      "vetoed": null,
-      "usage": {
-        "input": 12870,
-        "output": 1167,
-        "cache_read": 0,
-        "calls": 4
-      }
-    },
     {
       "at": "2026-08-26T15:13:49.025109+00:00",
       "kind": "note",
@@ -637,6 +625,18 @@
         "cache_read": 0,
         "calls": 3
       }
+    },
+    {
+      "at": "2026-08-28T23:13:11.764067+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9150,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
@@ -651,11 +651,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102094.02,
-    "buy_and_hold_return_pct": 2.09,
+    "buy_and_hold_value": 102128.71,
+    "buy_and_hold_return_pct": 2.13,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -2.16,
+    "excess_return_pct": -2.19,
     "meaningful": false,
     "caveat": "only 2.3 days - too short to mean anything, treat any difference as noise until about 30"
   }

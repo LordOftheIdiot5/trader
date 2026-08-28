@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-28T06:15:03.290070+00:00",
+  "generated_at": "2026-08-28T06:19:00.398202+00:00",
   "risk": {
-    "day": "2026-08-27",
-    "orders_today": 2,
-    "notional_today": 12094.76,
-    "realised_pnl_today": 67.98,
+    "day": "2026-08-28",
+    "orders_today": 1,
+    "notional_today": 6005.44,
+    "realised_pnl_today": 0.0,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,34 +18,39 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 100055.89,
-      "equity": 100055.89,
-      "positions": {}
+      "cash": 93988.55,
+      "equity": 99989.11,
+      "positions": {
+        "SOL/USD": {
+          "quantity": 55.85032114,
+          "average_price": 107.52742
+        }
+      }
     },
     "alpaca": {
       "reachable": true,
-      "cash": 100055.89,
-      "equity": 100055.89,
-      "positions": {}
+      "cash": 93988.55,
+      "equity": 99989.11,
+      "positions": {
+        "SOL/USD": {
+          "quantity": 55.85032114,
+          "average_price": 107.52742
+        }
+      }
     },
     "crypto": {
       "reachable": true,
-      "cash": 100055.89,
-      "equity": 100055.89,
-      "positions": {}
+      "cash": 93988.55,
+      "equity": 99989.11,
+      "positions": {
+        "SOL/USD": {
+          "quantity": 55.85032114,
+          "average_price": 107.52742
+        }
+      }
     }
   },
   "recent": [
-    {
-      "at": "2026-08-25T23:37:46.589772+00:00",
-      "kind": "note",
-      "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value='All six symbols receive ... The desk does nothing.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
-    },
-    {
-      "at": "2026-08-26T00:38:58.872472+00:00",
-      "kind": "note",
-      "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value=\"The technical analyst re... is the correct answer.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
-    },
     {
       "at": "2026-08-26T01:40:19.590734+00:00",
       "kind": "note",
@@ -593,12 +598,37 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-28T06:18:57.366806+00:00",
+      "kind": "note",
+      "message": "desk: The desk holds all other positions and buys SOL/USD. Technical analysis across the book reveals chop and elevated crowding (10.95% annualized funding on BTC, ETH, LINK) but no other setup worth acting on. SOL is the sole exception: the last 10 observations show sustained positioning above the 30-period mean with tight clustering in the final bars, signaling a shift from flat range to emerging uptrend. The technical seat rates this conviction 3. Research notes that Solana has already rallied 40% in eight days and peaked at $102.88, so much of the move is priced in; we are not chasing the bottom of the impulse but rather entering a continuation structure. We size at 0.06 (60% of the standard 0.08 max for a conviction-3 trade) to reflect entry after the primary move and to allow room for pullback to the 107.07 30-period mean (the technical risk). BTC holds due to choppy price action masking any clear direction despite $80k briefly being breached and ETF inflows ongoing. ETH, XRP, LINK, and DOGE all lack technical setups or catalysts; the tight ranges, narrow spreads versus their period means, and absence of persistence do not justify entry.",
+      "vetoed": null,
+      "usage": {
+        "input": 21175,
+        "output": 2191,
+        "cache_read": 0,
+        "calls": 5
+      }
+    },
+    {
+      "at": "2026-08-28T06:18:57.395218+00:00",
+      "kind": "fill",
+      "order_id": "paper-1",
+      "venue": "paper",
+      "symbol": "SOL/USD",
+      "side": "buy",
+      "quantity": 55.85032114,
+      "price": 107.52742,
+      "fee": 6.005440938355659,
+      "notional": 6005.44,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 1.62,
+    "days_running": 1.63,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -607,11 +637,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 105362.24,
-    "buy_and_hold_return_pct": 5.36,
-    "strategy_value": 100055.89,
-    "strategy_return_pct": 0.06,
-    "excess_return_pct": -5.31,
+    "buy_and_hold_value": 105346.26,
+    "buy_and_hold_return_pct": 5.35,
+    "strategy_value": 99989.11,
+    "strategy_return_pct": -0.01,
+    "excess_return_pct": -5.36,
     "meaningful": false,
     "caveat": "only 1.6 days - too short to mean anything, treat any difference as noise until about 30"
   }

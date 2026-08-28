@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T10:48:43.331765+00:00",
+  "generated_at": "2026-08-28T10:54:03.598747+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -628,7 +628,7 @@
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 1.81,
+    "days_running": 1.82,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -637,11 +637,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 104270.08,
-    "buy_and_hold_return_pct": 4.27,
+    "buy_and_hold_value": 104367.06,
+    "buy_and_hold_return_pct": 4.37,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -4.33,
+    "excess_return_pct": -4.43,
     "meaningful": false,
     "caveat": "only 1.8 days - too short to mean anything, treat any difference as noise until about 30"
   }

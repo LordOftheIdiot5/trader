@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T10:27:19.169073+00:00",
+  "generated_at": "2026-08-28T10:33:05.409839+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,11 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-26T05:45:04.716540+00:00",
-      "kind": "note",
-      "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value='All six symbols show cho... No trade is warranted.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
-    },
     {
       "at": "2026-08-26T06:46:10.670895+00:00",
       "kind": "note",
@@ -616,6 +611,18 @@
         "cache_read": 0,
         "calls": 3
       }
+    },
+    {
+      "at": "2026-08-28T10:33:05.409602+00:00",
+      "kind": "note",
+      "message": "desk: The technical desk reports conviction 1 (remarks, not trades) across all six symbols. Each asset has recovered modestly from recent local lows, but none has overcome the structural technical setup required to act: BTC remains below its 30-period mean by 234 points with no breakout; ETH oscillates within a tight band between its 10 and 30-period means with no trend character; SOL sits below both averages despite a bounce and shows negative funding that has not yet translated to price action; XRP, LINK, and DOGE are all range-bound with recoveries well within recent volatility bands. The research desk found SOL governance context (SIMD-0550 inflation vote closing Aug. 27) with real timing but notes markets have not yet priced the outcome\u2014this is background, not a catalyst to act on without technical confirmation. ETH fund flows were noted but are stale positioning data. Across the board, the case is for waiting: each symbol needs either a sustained breakout above resistance, a break below support to confirm downtrend, or material news paired with technical setup before entry or exit is warranted. Doing nothing is correct here.",
+      "vetoed": null,
+      "usage": {
+        "input": 14548,
+        "output": 1329,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
@@ -630,11 +637,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 103856.11,
-    "buy_and_hold_return_pct": 3.86,
+    "buy_and_hold_value": 104170.14,
+    "buy_and_hold_return_pct": 4.17,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -3.92,
+    "excess_return_pct": -4.23,
     "meaningful": false,
     "caveat": "only 1.8 days - too short to mean anything, treat any difference as noise until about 30"
   }

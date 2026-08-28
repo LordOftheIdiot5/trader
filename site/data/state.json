@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T17:51:08.673833+00:00",
+  "generated_at": "2026-08-28T17:56:58.088661+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,11 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-26T10:51:07.589989+00:00",
-      "kind": "note",
-      "message": "desk unavailable: 3 validation errors for ChairDecision\ndecisions.0.rationale\n  String should have at most 400 characters [type=string_too_long, input_value='BTC shows the strongest ...l range-bound behavior.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\ndecisions.1.rationale\n  String should have at most 400 characters [type=string_too_long, input_value='ETH meets similar criter... tighter range context.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value='The desk acts on BTC, ET...dity for adverse moves.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
-    },
     {
       "at": "2026-08-26T11:52:26.053259+00:00",
       "kind": "note",
@@ -630,6 +625,18 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-28T17:56:58.087701+00:00",
+      "kind": "note",
+      "message": "desk: All symbols exhibit consolidation with conviction 1\u20132 across the technical seat. BTC and ETH show slight weakness (both marginally below their 30-period means) after declines from earlier highs, but neither has broken clear support; ETH's technicals are particularly compromised by the $697M weekly inflow context and BlackRock's 78% ETF share capture, which could accelerate breakout above 2456\u20132460 resistance. SOL and XRP are range-bound with noise dominating signal. LINK and DOGE similarly lack direction. The technical seat correctly identifies that material news\u2014$6.4B BTC options expiration Friday, ETH institutional inflows, SOL's upgrade catalyst, Galaxy's credit facility\u2014creates event risk that invalidates static consolidation theses. Conviction is uniformly low (1\u20132), and no analyst calls for entry. The desk's discipline rules out trading on consolidation alone, on momentum stated twice, or on future event speculation unsupported by current price structure. Hold all.",
+      "vetoed": null,
+      "usage": {
+        "input": 15038,
+        "output": 1375,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
@@ -644,11 +651,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102555.9,
-    "buy_and_hold_return_pct": 2.56,
+    "buy_and_hold_value": 102443.26,
+    "buy_and_hold_return_pct": 2.44,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -2.62,
+    "excess_return_pct": -2.51,
     "meaningful": false,
     "caveat": "only 2.1 days - too short to mean anything, treat any difference as noise until about 30"
   }

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-28T07:17:12.892334+00:00",
+  "generated_at": "2026-08-28T07:23:15.257670+00:00",
   "risk": {
     "day": "2026-08-28",
-    "orders_today": 1,
-    "notional_today": 6005.44,
-    "realised_pnl_today": 0.0,
+    "orders_today": 2,
+    "notional_today": 11959.27,
+    "realised_pnl_today": -51.61,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,56 +18,24 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 93988.55,
-      "equity": 99958.39,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 55.85032114,
-          "average_price": 107.52742
-        }
-      }
+      "cash": 99936.43,
+      "equity": 99936.43,
+      "positions": {}
     },
     "alpaca": {
       "reachable": true,
-      "cash": 93988.55,
-      "equity": 99958.39,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 55.85032114,
-          "average_price": 107.52742
-        }
-      }
+      "cash": 99936.43,
+      "equity": 99936.43,
+      "positions": {}
     },
     "crypto": {
       "reachable": true,
-      "cash": 93988.55,
-      "equity": 99958.39,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 55.85032114,
-          "average_price": 107.52742
-        }
-      }
+      "cash": 99936.43,
+      "equity": 99936.43,
+      "positions": {}
     }
   },
   "recent": [
-    {
-      "at": "2026-08-26T01:40:19.590734+00:00",
-      "kind": "note",
-      "message": "desk unavailable: 1 validation error for ChairDecision\nsummary\n  String should have at most 600 characters [type=string_too_long, input_value=\"All six analysts concur ...s job today is to wait.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
-    },
-    {
-      "at": "2026-08-26T02:41:35.336358+00:00",
-      "kind": "note",
-      "message": "desk: No analyst had a view this run.",
-      "vetoed": null,
-      "usage": {
-        "input": 24581,
-        "output": 2087,
-        "cache_read": 0,
-        "calls": 9
-      }
-    },
     {
       "at": "2026-08-26T03:42:41.176040+00:00",
       "kind": "note",
@@ -623,6 +591,31 @@
       "fee": 6.005440938355659,
       "notional": 6005.44,
       "strategy": "desk"
+    },
+    {
+      "at": "2026-08-28T07:23:15.217786+00:00",
+      "kind": "note",
+      "message": "desk: The desk exits its only open position in SOL/USD. Both technical and portfolio seats converge on a sell with conviction 3, citing fading momentum, a tightening mean-10/mean-30 spread, and the 0.86 loss per unit already incurred on concentrated leverage (OI of 6.66M, the largest in book). While Agave 4.2 and Galaxy staking loans are real catalysts, neither has yet broken price above the 10-period mean; the research note that SOL tested $102 post-upgrade and pulled back suggests the initial enthusiasm has peaked into overbought conditions. The 6-bar oscillation band with no directional commitment is the technical tell. BTC, ETH, XRP, LINK, and DOGE all remain on hold: BTC and ETH show no clear breakout despite material ETF inflows and liquidation activity, XRP's Binance leverage increase has not yet moved price, and LINK and DOGE lack both technical setup and material news. The desk retains $94k in cash and one position\u2014a lean, disciplined posture with no forced trades.",
+      "vetoed": null,
+      "usage": {
+        "input": 22217,
+        "output": 2398,
+        "cache_read": 0,
+        "calls": 5
+      }
+    },
+    {
+      "at": "2026-08-28T07:23:15.257498+00:00",
+      "kind": "fill",
+      "order_id": "paper-2",
+      "venue": "paper",
+      "symbol": "SOL/USD",
+      "side": "sell",
+      "quantity": 55.85032114,
+      "price": 106.60328999999999,
+      "fee": 5.95382798108055,
+      "notional": 5953.83,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
@@ -637,11 +630,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 104891.4,
-    "buy_and_hold_return_pct": 4.89,
-    "strategy_value": 99958.39,
-    "strategy_return_pct": -0.04,
-    "excess_return_pct": -4.93,
+    "buy_and_hold_value": 104800.39,
+    "buy_and_hold_return_pct": 4.8,
+    "strategy_value": 99936.43,
+    "strategy_return_pct": -0.06,
+    "excess_return_pct": -4.86,
     "meaningful": false,
     "caveat": "only 1.7 days - too short to mean anything, treat any difference as noise until about 30"
   }

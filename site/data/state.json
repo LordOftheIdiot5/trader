@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T11:51:51.587500+00:00",
+  "generated_at": "2026-08-29T11:57:00.389287+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -655,11 +655,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 101726.76,
-    "buy_and_hold_return_pct": 1.73,
+    "buy_and_hold_value": 101673.13,
+    "buy_and_hold_return_pct": 1.67,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -1.79,
+    "excess_return_pct": -1.74,
     "meaningful": false,
     "caveat": "only 2.9 days - too short to mean anything, treat any difference as noise until about 30"
   }

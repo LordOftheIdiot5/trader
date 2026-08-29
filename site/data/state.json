@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T07:33:20.592733+00:00",
+  "generated_at": "2026-08-29T07:38:53.480145+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,18 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-26T23:46:16.084933+00:00",
-      "kind": "note",
-      "message": "desk: The desk holds on BTC, ETH, XRP, LINK, and DOGE. All five show the 10-period above the 30-period, but lack the directional persistence required to trade. BTC oscillates despite the recent three-bar uptick; ETH has crowded long positioning with ambiguous price action; XRP, LINK, and DOGE all show late-window acceleration that does not yet constitute a confirmed trend. The research desk reported material news on BTC (ETF inflows), ETH (BlackRock captures 78% of inflows, SEC framework, Clarity Act progress), and SOL (BSOL at $1B cumulative inflows, bank collateral acceptance). SOL alone translates this into price structure: the 4.9% premium above the 30-period mean is supported by 12 bars of higher lows and higher highs, which meets the threshold for directional persistence. The technical analyst assigned conviction 3 to SOL and 1-2 to all others. We act on SOL at reduced size (0.15) to avoid crowding into a move that is only 10\u201312 bars old, and we hold everything else. No trade is better than a late trade into noise.",
-      "vetoed": null,
-      "usage": {
-        "input": 22089,
-        "output": 2559,
-        "cache_read": 0,
-        "calls": 5
-      }
-    },
     {
       "at": "2026-08-26T23:46:16.085227+00:00",
       "kind": "rejected",
@@ -637,6 +625,18 @@
         "cache_read": 0,
         "calls": 3
       }
+    },
+    {
+      "at": "2026-08-29T07:38:53.479872+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9018,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
@@ -651,11 +651,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 101709.85,
-    "buy_and_hold_return_pct": 1.71,
+    "buy_and_hold_value": 101740.16,
+    "buy_and_hold_return_pct": 1.74,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -1.77,
+    "excess_return_pct": -1.8,
     "meaningful": false,
     "caveat": "only 2.7 days - too short to mean anything, treat any difference as noise until about 30"
   }

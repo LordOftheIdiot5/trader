@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T08:36:28.414225+00:00",
+  "generated_at": "2026-08-29T08:42:03.577202+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,14 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-26T23:46:16.085227+00:00",
-      "kind": "rejected",
-      "symbol": "SOL/USD",
-      "side": "buy",
-      "quantity": 147.71048744,
-      "reason": "order notional 15,075.00 (incl. 50bps slippage) exceeds per-order cap 1,000.00"
-    },
     {
       "at": "2026-08-27T00:33:48.702991+00:00",
       "kind": "note",
@@ -637,12 +629,24 @@
         "cache_read": 0,
         "calls": 3
       }
+    },
+    {
+      "at": "2026-08-29T08:42:03.576943+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9326,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 2.72,
+    "days_running": 2.73,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -651,11 +655,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 101578.34,
-    "buy_and_hold_return_pct": 1.58,
+    "buy_and_hold_value": 101592.92,
+    "buy_and_hold_return_pct": 1.59,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -1.64,
+    "excess_return_pct": -1.66,
     "meaningful": false,
     "caveat": "only 2.7 days - too short to mean anything, treat any difference as noise until about 30"
   }

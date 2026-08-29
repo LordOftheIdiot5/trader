@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T23:22:23.809646+00:00",
+  "generated_at": "2026-08-29T23:27:57.490327+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,18 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-27T12:11:55.913974+00:00",
-      "kind": "note",
-      "message": "desk: No analyst had a view this run.",
-      "vetoed": null,
-      "usage": {
-        "input": 9484,
-        "output": 17,
-        "cache_read": 0,
-        "calls": 3
-      }
-    },
     {
       "at": "2026-08-27T13:15:16.283527+00:00",
       "kind": "note",
@@ -641,6 +629,18 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-29T23:27:57.490010+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9242,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
@@ -655,11 +655,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102776.27,
-    "buy_and_hold_return_pct": 2.78,
+    "buy_and_hold_value": 102715.5,
+    "buy_and_hold_return_pct": 2.72,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -2.84,
+    "excess_return_pct": -2.78,
     "meaningful": false,
     "caveat": "only 3.3 days - too short to mean anything, treat any difference as noise until about 30"
   }

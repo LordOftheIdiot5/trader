@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T18:23:32.860149+00:00",
+  "generated_at": "2026-08-30T18:29:06.384488+00:00",
   "risk": {
     "day": "2026-08-30",
     "orders_today": 4,
@@ -36,19 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-28T07:23:15.257498+00:00",
-      "kind": "fill",
-      "order_id": "paper-2",
-      "venue": "paper",
-      "symbol": "SOL/USD",
-      "side": "sell",
-      "quantity": 55.85032114,
-      "price": 106.60328999999999,
-      "fee": 5.95382798108055,
-      "notional": 5953.83,
-      "strategy": "desk"
-    },
     {
       "at": "2026-08-28T08:26:36.839779+00:00",
       "kind": "note",
@@ -640,6 +627,18 @@
       "fee": 4.98446614429947,
       "notional": 4984.47,
       "strategy": "desk"
+    },
+    {
+      "at": "2026-08-30T18:29:06.384287+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9166,
+        "output": 17,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
@@ -654,11 +653,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 104125.51,
-    "buy_and_hold_return_pct": 4.13,
+    "buy_and_hold_value": 104233.14,
+    "buy_and_hold_return_pct": 4.23,
     "strategy_value": 99878.49,
     "strategy_return_pct": -0.12,
-    "excess_return_pct": -4.25,
+    "excess_return_pct": -4.35,
     "meaningful": false,
     "caveat": "only 4.1 days - too short to mean anything, treat any difference as noise until about 30"
   }

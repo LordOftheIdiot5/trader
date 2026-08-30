@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-30T13:05:37.661108+00:00",
+  "generated_at": "2026-08-30T13:11:39.567201+00:00",
   "risk": {
     "day": "2026-08-30",
-    "orders_today": 1,
-    "notional_today": 6013.9,
-    "realised_pnl_today": 0.0,
+    "orders_today": 2,
+    "notional_today": 12010.4,
+    "realised_pnl_today": -17.39,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,51 +18,24 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 93916.52,
-      "equity": 99931.44,
-      "positions": {
-        "LINK/USD": {
-          "quantity": 524.14210371,
-          "average_price": 11.473792
-        }
-      }
+      "cash": 99907.02,
+      "equity": 99907.02,
+      "positions": {}
     },
     "alpaca": {
       "reachable": true,
-      "cash": 93916.52,
-      "equity": 99931.44,
-      "positions": {
-        "LINK/USD": {
-          "quantity": 524.14210371,
-          "average_price": 11.473792
-        }
-      }
+      "cash": 99907.02,
+      "equity": 99907.02,
+      "positions": {}
     },
     "crypto": {
       "reachable": true,
-      "cash": 93916.52,
-      "equity": 99931.44,
-      "positions": {
-        "LINK/USD": {
-          "quantity": 524.14210371,
-          "average_price": 11.473792
-        }
-      }
+      "cash": 99907.02,
+      "equity": 99907.02,
+      "positions": {}
     }
   },
   "recent": [
-    {
-      "at": "2026-08-28T05:06:30.622063+00:00",
-      "kind": "note",
-      "message": "desk: The technical analyst presents six holdings (all holds at conviction 1) and two sells (ETH at conviction 3, XRP at conviction 2). The case against action is stronger than the case for it. ETH's sell rests on flat price action, crowded long positioning (747k open interest), and elevated funding (10.95% annualised), offset only by the research narrative of sustained institutional inflows\u2014a forward-looking claim disconnected from the current price series. XRP's sell is weaker (conviction 2) because the 18.87% Aug 21 rally cited by research is stale (three sessions old), price has retraced 2.5%, but the fundamental narrative around stablecoin adoption and institutional corridors remains material and unrefuted by the technicals alone. The strongest objection to both sells: research explicitly warns these narratives could reignite buying that overwhelms visible short-term weakness. BTC shows choppy oscillation around the 30-period mean with moderate funding and no directional setup. SOL, LINK, and DOGE are all in tight consolidation ranges with no momentum. The desk's central disagreement is whether elevated funding and flat technicals in ETH and XRP represent crowded longs ready to unwind (technical view) or temporary consolidation before continuation driven by material institutional flows (research view). The technical case relies on mean-reversion and funding as a reversal signal, but neither is concrete enough to override the research's material catalysts (ETF inflows, regulatory clarity, stablecoin adoption). With no position and no concrete technical break, the correct answer is to do nothing and wait for either a clear directional setup or invalidation of the research narratives.",
-      "vetoed": null,
-      "usage": {
-        "input": 15230,
-        "output": 1716,
-        "cache_read": 0,
-        "calls": 4
-      }
-    },
     {
       "at": "2026-08-28T06:09:54.692974+00:00",
       "kind": "note",
@@ -653,6 +626,19 @@
       "fee": 6.013897649377863,
       "notional": 6013.9,
       "strategy": "desk"
+    },
+    {
+      "at": "2026-08-30T13:11:39.566936+00:00",
+      "kind": "fill",
+      "order_id": "paper-4",
+      "venue": "paper",
+      "symbol": "LINK/USD",
+      "side": "sell",
+      "quantity": 524.14210371,
+      "price": 11.44060794,
+      "fee": 5.996504313392929,
+      "notional": 5996.5,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
@@ -667,11 +653,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 103198.73,
-    "buy_and_hold_return_pct": 3.2,
-    "strategy_value": 99931.44,
-    "strategy_return_pct": -0.07,
-    "excess_return_pct": -3.27,
+    "buy_and_hold_value": 103093.36,
+    "buy_and_hold_return_pct": 3.09,
+    "strategy_value": 99907.02,
+    "strategy_return_pct": -0.09,
+    "excess_return_pct": -3.19,
     "meaningful": false,
     "caveat": "only 3.9 days - too short to mean anything, treat any difference as noise until about 30"
   }

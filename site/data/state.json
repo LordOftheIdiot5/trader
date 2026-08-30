@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-30T17:20:00.799390+00:00",
+  "generated_at": "2026-08-30T17:25:58.079895+00:00",
   "risk": {
     "day": "2026-08-30",
-    "orders_today": 3,
-    "notional_today": 17013.42,
-    "realised_pnl_today": -17.39,
+    "orders_today": 4,
+    "notional_today": 21997.88,
+    "realised_pnl_today": -35.94,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,51 +18,24 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 94899.01,
-      "equity": 99911.06,
-      "positions": {
-        "LINK/USD": {
-          "quantity": 429.08310672,
-          "average_price": 11.659778
-        }
-      }
+      "cash": 99878.49,
+      "equity": 99878.49,
+      "positions": {}
     },
     "alpaca": {
       "reachable": true,
-      "cash": 94899.01,
-      "equity": 99911.06,
-      "positions": {
-        "LINK/USD": {
-          "quantity": 429.08310672,
-          "average_price": 11.659778
-        }
-      }
+      "cash": 99878.49,
+      "equity": 99878.49,
+      "positions": {}
     },
     "crypto": {
       "reachable": true,
-      "cash": 94899.01,
-      "equity": 99911.06,
-      "positions": {
-        "LINK/USD": {
-          "quantity": 429.08310672,
-          "average_price": 11.659778
-        }
-      }
+      "cash": 99878.49,
+      "equity": 99878.49,
+      "positions": {}
     }
   },
   "recent": [
-    {
-      "at": "2026-08-28T07:23:15.217786+00:00",
-      "kind": "note",
-      "message": "desk: The desk exits its only open position in SOL/USD. Both technical and portfolio seats converge on a sell with conviction 3, citing fading momentum, a tightening mean-10/mean-30 spread, and the 0.86 loss per unit already incurred on concentrated leverage (OI of 6.66M, the largest in book). While Agave 4.2 and Galaxy staking loans are real catalysts, neither has yet broken price above the 10-period mean; the research note that SOL tested $102 post-upgrade and pulled back suggests the initial enthusiasm has peaked into overbought conditions. The 6-bar oscillation band with no directional commitment is the technical tell. BTC, ETH, XRP, LINK, and DOGE all remain on hold: BTC and ETH show no clear breakout despite material ETF inflows and liquidation activity, XRP's Binance leverage increase has not yet moved price, and LINK and DOGE lack both technical setup and material news. The desk retains $94k in cash and one position\u2014a lean, disciplined posture with no forced trades.",
-      "vetoed": null,
-      "usage": {
-        "input": 22217,
-        "output": 2398,
-        "cache_read": 0,
-        "calls": 5
-      }
-    },
     {
       "at": "2026-08-28T07:23:15.257498+00:00",
       "kind": "fill",
@@ -654,12 +627,25 @@
       "fee": 5.003013823686311,
       "notional": 5003.01,
       "strategy": "desk"
+    },
+    {
+      "at": "2026-08-30T17:25:58.079654+00:00",
+      "kind": "fill",
+      "order_id": "paper-6",
+      "venue": "paper",
+      "symbol": "LINK/USD",
+      "side": "sell",
+      "quantity": 429.08310672,
+      "price": 11.61655182,
+      "fee": 4.98446614429947,
+      "notional": 4984.47,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 4.08,
+    "days_running": 4.09,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -668,11 +654,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 104149.74,
-    "buy_and_hold_return_pct": 4.15,
-    "strategy_value": 99911.06,
-    "strategy_return_pct": -0.09,
-    "excess_return_pct": -4.24,
+    "buy_and_hold_value": 103703.02,
+    "buy_and_hold_return_pct": 3.7,
+    "strategy_value": 99878.49,
+    "strategy_return_pct": -0.12,
+    "excess_return_pct": -3.82,
     "meaningful": false,
     "caveat": "only 4.1 days - too short to mean anything, treat any difference as noise until about 30"
   }

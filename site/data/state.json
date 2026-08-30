@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T03:35:28.422787+00:00",
+  "generated_at": "2026-08-30T03:41:01.926625+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,19 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-27T15:23:02.525891+00:00",
-      "kind": "fill",
-      "order_id": "paper-2",
-      "venue": "paper",
-      "symbol": "SOL/USD",
-      "side": "sell",
-      "quantity": 56.791292,
-      "price": 107.08281,
-      "fee": 6.08137113089052,
-      "notional": 6081.37,
-      "strategy": "desk"
-    },
     {
       "at": "2026-08-27T16:26:28.924587+00:00",
       "kind": "note",
@@ -640,12 +627,24 @@
         "cache_read": 0,
         "calls": 3
       }
+    },
+    {
+      "at": "2026-08-30T03:41:01.926153+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9172,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 3.51,
+    "days_running": 3.52,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -654,11 +653,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102673.56,
-    "buy_and_hold_return_pct": 2.67,
+    "buy_and_hold_value": 102596.12,
+    "buy_and_hold_return_pct": 2.6,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -2.74,
+    "excess_return_pct": -2.66,
     "meaningful": false,
     "caveat": "only 3.5 days - too short to mean anything, treat any difference as noise until about 30"
   }

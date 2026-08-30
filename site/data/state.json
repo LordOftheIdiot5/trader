@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T16:48:13.135687+00:00",
+  "generated_at": "2026-08-30T16:53:36.709165+00:00",
   "risk": {
     "day": "2026-08-30",
     "orders_today": 3,
@@ -19,7 +19,7 @@
     "paper": {
       "reachable": true,
       "cash": 94899.01,
-      "equity": 99938.53,
+      "equity": 99937.94,
       "positions": {
         "LINK/USD": {
           "quantity": 429.08310672,
@@ -30,7 +30,7 @@
     "alpaca": {
       "reachable": true,
       "cash": 94899.01,
-      "equity": 99938.53,
+      "equity": 99937.94,
       "positions": {
         "LINK/USD": {
           "quantity": 429.08310672,
@@ -41,7 +41,7 @@
     "crypto": {
       "reachable": true,
       "cash": 94899.01,
-      "equity": 99938.53,
+      "equity": 99937.94,
       "positions": {
         "LINK/USD": {
           "quantity": 429.08310672,
@@ -659,7 +659,7 @@
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 4.06,
+    "days_running": 4.07,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -668,11 +668,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 104484.07,
-    "buy_and_hold_return_pct": 4.48,
-    "strategy_value": 99938.53,
+    "buy_and_hold_value": 104529.59,
+    "buy_and_hold_return_pct": 4.53,
+    "strategy_value": 99937.94,
     "strategy_return_pct": -0.06,
-    "excess_return_pct": -4.55,
+    "excess_return_pct": -4.59,
     "meaningful": false,
     "caveat": "only 4.1 days - too short to mean anything, treat any difference as noise until about 30"
   }

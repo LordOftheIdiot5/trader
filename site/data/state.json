@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-30T12:01:19.542038+00:00",
+  "generated_at": "2026-08-30T12:07:24.889487+00:00",
   "risk": {
-    "day": "2026-08-28",
-    "orders_today": 2,
-    "notional_today": 11959.27,
-    "realised_pnl_today": -51.61,
+    "day": "2026-08-30",
+    "orders_today": 1,
+    "notional_today": 6013.9,
+    "realised_pnl_today": 0.0,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,50 +18,39 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 99936.43,
-      "equity": 99936.43,
-      "positions": {}
+      "cash": 93916.52,
+      "equity": 99924.41,
+      "positions": {
+        "LINK/USD": {
+          "quantity": 524.14210371,
+          "average_price": 11.473792
+        }
+      }
     },
     "alpaca": {
       "reachable": true,
-      "cash": 99936.43,
-      "equity": 99936.43,
-      "positions": {}
+      "cash": 93916.52,
+      "equity": 99924.41,
+      "positions": {
+        "LINK/USD": {
+          "quantity": 524.14210371,
+          "average_price": 11.473792
+        }
+      }
     },
     "crypto": {
       "reachable": true,
-      "cash": 99936.43,
-      "equity": 99936.43,
-      "positions": {}
+      "cash": 93916.52,
+      "equity": 99924.41,
+      "positions": {
+        "LINK/USD": {
+          "quantity": 524.14210371,
+          "average_price": 11.473792
+        }
+      }
     }
   },
   "recent": [
-    {
-      "at": "2026-08-28T00:52:30.687822+00:00",
-      "kind": "note",
-      "message": "desk: No analyst had a view this run.",
-      "vetoed": null,
-      "usage": {
-        "input": 9272,
-        "output": 16,
-        "cache_read": 0,
-        "calls": 3
-      }
-    },
-    {
-      "at": "2026-08-28T01:56:02.812498+00:00",
-      "kind": "note",
-      "message": "desk: All six symbols show pullbacks from recent local highs but none warrant action. Bitcoin is consolidating 348 points below its recent peak with stalled momentum\u2014hold; Ethereum is at fair value (price = 30-period mean) with low conviction; SOL is the only sell candidate by technicals, but the analyst's conviction 3 rests on a 1.15-point reversal in a series with 'significant intraday chop'\u2014that is not sufficient to short into $10.95% annualized funding and 6.91M open contracts. XRP, LINK, and DOGE all show mean-reversion patterns with no sustained direction and low technical conviction (all conviction 1). The research desk found BTC, ETH, and SOL moves are already widely known and priced; no fresh catalyst exists to act on them. The desk does nothing.",
-      "vetoed": {
-        "SOL/USD": "The chair rejects the technical analyst's sell recommendation on SOL/USD, but in doing so makes a decision\u2014converting a hold into an implicit long bias by refusing to sell. This crosses from review into active positioning. The risk seat cannot approve this because it reverses the analyst's conviction (3 toward selling) based on reasoning that itself has merit but does not belong in a risk veto. The chair argues the 1% pullback is noise and that funding is 'the wrong side' to short\u2014both judgment calls about market structure and trade quality that belong in the chair's seat, not overridden by risk. If the chair believes the sell case is weak, the chair should say 'hold' and let it live in the portfolio. Instead the chair is using risk-language ('the wrong side of the risk trade') to justify a position view. The analyst's conviction was 3 on concrete observations: price below both means, peak-to-current reversal, and elevated leverage. Whether that justifies a short is debatable, but refusing to act on conviction-3 technicals by invoking funding rates as 'context only' and declaring the move 'noise' is circular reasoning: 'the move doesn't matter because it's small, therefore we should not trade it even though technicals say sell.' That argues against acting in any quiet market. The chair should either accept the sell, propose a smaller short, or simply rule 'hold'\u2014not veto the analyst using risk authority. Approve the actual hold decision: all five other symbols are correctly held."
-      },
-      "usage": {
-        "input": 21173,
-        "output": 2031,
-        "cache_read": 0,
-        "calls": 5
-      }
-    },
     {
       "at": "2026-08-28T05:06:30.622063+00:00",
       "kind": "note",
@@ -639,12 +628,37 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-30T12:07:21.821865+00:00",
+      "kind": "note",
+      "message": "desk: The desk has one trade: a small long in LINK/USD. The technical analyst identified LINK as the only symbol with a clear directional structure\u2014a persistent uptrend with minimal pullback over 20 bars and 10-period above 30-period confirmation. All other symbols show violent oscillation (BTC), no trend (ETH, SOL, XRP, DOGE), or conviction too low to trade. The research provided material news on BTC (Fed hawkishness, negative ETF flows, liquidations), ETH (strong inflows, treasury expansion), and SOL (protocol upgrade), but none of this altered the technical picture enough to override the lack of price structure in ETH, SOL, XRP, or DOGE. BTC remains too noisy to call despite the technicals capturing the recent selloff. LINK's move is small (0.77%) and vulnerable to retracement on sentiment shifts or broader risk-off, so conviction is tempered and sizing is light.",
+      "vetoed": null,
+      "usage": {
+        "input": 21426,
+        "output": 1905,
+        "cache_read": 0,
+        "calls": 5
+      }
+    },
+    {
+      "at": "2026-08-30T12:07:21.898074+00:00",
+      "kind": "fill",
+      "order_id": "paper-3",
+      "venue": "paper",
+      "symbol": "LINK/USD",
+      "side": "buy",
+      "quantity": 524.14210371,
+      "price": 11.47379233,
+      "fee": 6.013897649377863,
+      "notional": 6013.9,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 3.86,
+    "days_running": 3.87,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -653,11 +667,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102584.2,
-    "buy_and_hold_return_pct": 2.58,
-    "strategy_value": 99936.43,
-    "strategy_return_pct": -0.06,
-    "excess_return_pct": -2.65,
+    "buy_and_hold_value": 102846.82,
+    "buy_and_hold_return_pct": 2.85,
+    "strategy_value": 99924.41,
+    "strategy_return_pct": -0.08,
+    "excess_return_pct": -2.92,
     "meaningful": false,
     "caveat": "only 3.9 days - too short to mean anything, treat any difference as noise until about 30"
   }

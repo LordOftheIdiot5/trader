@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T05:41:58.213586+00:00",
+  "generated_at": "2026-08-30T05:47:32.594568+00:00",
   "risk": {
     "day": "2026-08-28",
     "orders_today": 2,
@@ -36,18 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-27T17:29:45.091971+00:00",
-      "kind": "note",
-      "message": "desk: The technical analyst identifies a potential reversal in SOL/USD with conviction 3, citing a 1% three-bar decline from a local high of 109.62, RSI near overbought at 79, and $17.51M in liquidations. While these are real observations\u2014price is 0.89 below the 10-period mean and the analyst correctly notes momentum exhaustion signals\u2014the case for action is thin. Three observations constitute noise, not a reliable reversal pattern, especially in a volatile asset. The analyst's own risk statement concedes this: 'the decline is only three ticks.' The longer context matters: SOL has climbed from 105.35 to 109.62 over the recent window, and a protocol upgrade (SIMD-0266) with meaningful implications is in progress\u2014timing unclear\u2014which could reignite demand. We have no information on whether that upgrade is priced in or not. Selling here means betting against a potential catalyst while sacrificing any upside if the upgrade materializes. Conviction 3 on a three-bar pattern in the context of protocol developments and elevated liquidations is not sufficient to override the lack of a clear, independent catalyst for a *sell*. The desk holds.",
-      "vetoed": null,
-      "usage": {
-        "input": 13914,
-        "output": 492,
-        "cache_read": 0,
-        "calls": 4
-      }
-    },
     {
       "at": "2026-08-27T19:36:19.262149+00:00",
       "kind": "note",
@@ -639,6 +627,18 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-30T05:47:32.594366+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9304,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
@@ -653,8 +653,8 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102520.66,
-    "buy_and_hold_return_pct": 2.52,
+    "buy_and_hold_value": 102513.28,
+    "buy_and_hold_return_pct": 2.51,
     "strategy_value": 99936.43,
     "strategy_return_pct": -0.06,
     "excess_return_pct": -2.58,

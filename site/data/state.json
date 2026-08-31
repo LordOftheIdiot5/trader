@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T07:03:20.472270+00:00",
+  "generated_at": "2026-08-31T07:08:54.143361+00:00",
   "risk": {
     "day": "2026-08-30",
     "orders_today": 4,
@@ -36,18 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-28T19:00:21.363593+00:00",
-      "kind": "note",
-      "message": "desk: The technical analyst presents six holdings, all with conviction 1\u20132, all recommending hold. The case is consistent: all six symbols show recent downtrends from their 30-observation highs, but are currently choppy and range-bound near or below their 10-period means, with no clear directional bias. The research desk supplied material context\u2014Bitcoin options expiry on August 28, record ETH inflows, SOL's 40% surge and new network upgrade, XRP/ETH crowded longs\u2014but the technical analyst correctly notes these are drivers, not signals visible in the price tape itself. Conviction across all positions is appropriately low (1\u20132), reflecting genuine uncertainty. The desk has no positions open and no technical setup is concrete enough to warrant entry. Price chop with elevated funding rates and large open interest suggests the market is contested, not trending. The absence of a trade here is the correct answer.",
-      "vetoed": null,
-      "usage": {
-        "input": 15087,
-        "output": 1352,
-        "cache_read": 0,
-        "calls": 4
-      }
-    },
     {
       "at": "2026-08-28T21:06:51.438180+00:00",
       "kind": "note",
@@ -641,6 +629,18 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-08-31T07:08:54.143054+00:00",
+      "kind": "note",
+      "message": "desk: No analyst had a view this run.",
+      "vetoed": null,
+      "usage": {
+        "input": 9224,
+        "output": 16,
+        "cache_read": 0,
+        "calls": 3
+      }
     }
   ],
   "benchmark": {
@@ -655,7 +655,7 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 100993.17,
+    "buy_and_hold_value": 100989.31,
     "buy_and_hold_return_pct": 0.99,
     "strategy_value": 99878.49,
     "strategy_return_pct": -0.12,

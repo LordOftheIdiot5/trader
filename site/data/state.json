@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T13:15:28.981459+00:00",
+  "generated_at": "2026-09-01T13:20:42.336257+00:00",
   "risk": {
     "day": "2026-09-01",
     "orders_today": 1,
@@ -19,7 +19,7 @@
     "paper": {
       "reachable": true,
       "cash": 93868.51,
-      "equity": 99832.52,
+      "equity": 99829.59,
       "positions": {
         "SOL/USD": {
           "quantity": 58.56258509,
@@ -30,7 +30,7 @@
     "alpaca": {
       "reachable": true,
       "cash": 93868.51,
-      "equity": 99832.52,
+      "equity": 99829.59,
       "positions": {
         "SOL/USD": {
           "quantity": 58.56258509,
@@ -41,7 +41,7 @@
     "crypto": {
       "reachable": true,
       "cash": 93868.51,
-      "equity": 99832.52,
+      "equity": 99829.59,
       "positions": {
         "SOL/USD": {
           "quantity": 58.56258509,
@@ -664,7 +664,7 @@
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 5.91,
+    "days_running": 5.92,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -673,11 +673,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 100903.36,
-    "buy_and_hold_return_pct": 0.9,
-    "strategy_value": 99831.93,
+    "buy_and_hold_value": 100878.04,
+    "buy_and_hold_return_pct": 0.88,
+    "strategy_value": 99829.59,
     "strategy_return_pct": -0.17,
-    "excess_return_pct": -1.07,
+    "excess_return_pct": -1.05,
     "meaningful": false,
     "caveat": "only 5.9 days - too short to mean anything, treat any difference as noise until about 30"
   }

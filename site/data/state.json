@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T20:19:44.199024+00:00",
+  "generated_at": "2026-09-01T20:24:56.937556+00:00",
   "risk": {
     "day": "2026-09-01",
     "orders_today": 3,
@@ -19,7 +19,7 @@
     "paper": {
       "reachable": true,
       "cash": 94841.18,
-      "equity": 99848.81,
+      "equity": 99840.32,
       "positions": {
         "SOL/USD": {
           "quantity": 49.9713753,
@@ -30,7 +30,7 @@
     "alpaca": {
       "reachable": true,
       "cash": 94841.18,
-      "equity": 99848.81,
+      "equity": 99840.32,
       "positions": {
         "SOL/USD": {
           "quantity": 49.9713753,
@@ -41,7 +41,7 @@
     "crypto": {
       "reachable": true,
       "cash": 94841.18,
-      "equity": 99848.81,
+      "equity": 99840.32,
       "positions": {
         "SOL/USD": {
           "quantity": 49.9713753,
@@ -679,11 +679,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 99971.29,
-    "buy_and_hold_return_pct": -0.03,
-    "strategy_value": 99847.81,
-    "strategy_return_pct": -0.15,
-    "excess_return_pct": -0.12,
+    "buy_and_hold_value": 99836.23,
+    "buy_and_hold_return_pct": -0.16,
+    "strategy_value": 99840.32,
+    "strategy_return_pct": -0.16,
+    "excess_return_pct": 0.0,
     "meaningful": false,
     "caveat": "only 6.2 days - too short to mean anything, treat any difference as noise until about 30"
   }

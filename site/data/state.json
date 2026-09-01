@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T21:07:22.790704+00:00",
+  "generated_at": "2026-09-01T21:13:02.741788+00:00",
   "risk": {
     "day": "2026-09-01",
     "orders_today": 3,
@@ -19,7 +19,7 @@
     "paper": {
       "reachable": true,
       "cash": 94841.18,
-      "equity": 99827.82,
+      "equity": 99802.84,
       "positions": {
         "SOL/USD": {
           "quantity": 49.9713753,
@@ -30,7 +30,7 @@
     "alpaca": {
       "reachable": true,
       "cash": 94841.18,
-      "equity": 99827.82,
+      "equity": 99804.34,
       "positions": {
         "SOL/USD": {
           "quantity": 49.9713753,
@@ -41,7 +41,7 @@
     "crypto": {
       "reachable": true,
       "cash": 94841.18,
-      "equity": 99827.82,
+      "equity": 99804.34,
       "positions": {
         "SOL/USD": {
           "quantity": 49.9713753,
@@ -51,19 +51,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-08-30T12:07:21.898074+00:00",
-      "kind": "fill",
-      "order_id": "paper-3",
-      "venue": "paper",
-      "symbol": "LINK/USD",
-      "side": "buy",
-      "quantity": 524.14210371,
-      "price": 11.47379233,
-      "fee": 6.013897649377863,
-      "notional": 6013.9,
-      "strategy": "desk"
-    },
     {
       "at": "2026-08-30T13:11:39.566936+00:00",
       "kind": "fill",
@@ -665,12 +652,24 @@
       "fee": 4.996632319395717,
       "notional": 4996.63,
       "strategy": "desk"
+    },
+    {
+      "at": "2026-09-01T21:13:00.723547+00:00",
+      "kind": "note",
+      "message": "desk: Both analysts agree on SOL/USD: hold the position, conviction 2. The case is that recent news (governance disinflation vote, OpenSea support, Schwab listing) is structurally positive but appears already priced in\u2014price sits near entry with no momentum follow-through, and the 10- and 30-period means show no directional conviction. The strongest case against holding is that these catalysts may take weeks to drive institutional accumulation and we could be selling ahead of that move; however, the current price action (consolidation, negative funding, no sustained trend above resistance) does not yet show that acceleration. BTC, ETH, XRP, LINK, and DOGE show no material news, no technical setup, and no conviction from the desk. With only one position and no actionable signal across the portfolio, the correct decision is to do nothing and let the current setup mature.",
+      "vetoed": null,
+      "usage": {
+        "input": 13720,
+        "output": 655,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 6.24,
+    "days_running": 6.25,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -679,11 +678,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 99600.33,
-    "buy_and_hold_return_pct": -0.4,
-    "strategy_value": 99827.82,
-    "strategy_return_pct": -0.17,
-    "excess_return_pct": 0.23,
+    "buy_and_hold_value": 99138.99,
+    "buy_and_hold_return_pct": -0.86,
+    "strategy_value": 99804.34,
+    "strategy_return_pct": -0.2,
+    "excess_return_pct": 0.67,
     "meaningful": false,
     "caveat": "only 6.2 days - too short to mean anything, treat any difference as noise until about 30"
   }

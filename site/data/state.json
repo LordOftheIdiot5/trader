@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-01T20:03:17.918572+00:00",
+  "generated_at": "2026-09-01T20:09:07.935534+00:00",
   "risk": {
     "day": "2026-09-01",
-    "orders_today": 2,
-    "notional_today": 11984.26,
+    "orders_today": 3,
+    "notional_today": 16980.89,
     "realised_pnl_today": -23.7,
     "halted": false,
     "halt_reason": null,
@@ -18,48 +18,39 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 99842.81,
-      "equity": 99842.81,
-      "positions": {}
+      "cash": 94841.18,
+      "equity": 99832.82,
+      "positions": {
+        "SOL/USD": {
+          "quantity": 49.9713753,
+          "average_price": 99.98989
+        }
+      }
     },
     "alpaca": {
       "reachable": true,
-      "cash": 99842.81,
-      "equity": 99842.81,
-      "positions": {}
+      "cash": 94841.18,
+      "equity": 99833.32,
+      "positions": {
+        "SOL/USD": {
+          "quantity": 49.9713753,
+          "average_price": 99.98989
+        }
+      }
     },
     "crypto": {
       "reachable": true,
-      "cash": 99842.81,
-      "equity": 99842.81,
-      "positions": {}
+      "cash": 94841.18,
+      "equity": 99833.32,
+      "positions": {
+        "SOL/USD": {
+          "quantity": 49.9713753,
+          "average_price": 99.98989
+        }
+      }
     }
   },
   "recent": [
-    {
-      "at": "2026-08-30T11:03:44.820235+00:00",
-      "kind": "note",
-      "message": "desk: The technical analyst reports low conviction holds across the board with one exception: a sell on SOL/USD with conviction 3, citing a 40% surge that peaked at $102.88, generated overbought RSI (~79), triggered $17.51M in liquidations, and has now rolled over. Current price at $105.19 is still elevated but showing rejection of the spike. However, the research context provides crucial pushback: the Schwab listing catalyst is noted as 'moderately constructive' and the analyst acknowledges the current pullback may be a 'shakeout rather than a peak' if sector macro support returns. The elevated funding rate (10.95% annualised across all symbols) indicates broad crowding, not unique weakness in SOL. BTC/USD shows no directional persistence despite trading above both moving averages\u2014the research notes Jackson Hole hawkishness and negative spot ETF flows (\u2013$105.6M on 28 Aug, breaking a 9-day $3B inflow streak), which is bearish context, but the 40-observation price series itself shows only whipsaws with no trend confirmation. ETH/USD is similarly choppy with no extremes. The case for shorting SOL rests on technical overbought conditions and liquidation-driven rejection, which is concrete. The case against it is that (1) the listing catalyst may still have secondary momentum ahead, (2) the sector-wide crowding and funding suggest this was a broad rally, not a SOL-specific bubble, and (3) a shakeout in an overbought move does not confirm a top. Given the analyst's own acknowledgment of downside risk and the lack of follow-through confirmation below the spike, the conviction 3 sell is not fully supported by the snapshot alone\u2014it relies on the macro narrative from research that has now shifted to hawkish. The desk holds cash. No trades meet the bar.",
-      "vetoed": null,
-      "usage": {
-        "input": 14773,
-        "output": 1387,
-        "cache_read": 0,
-        "calls": 4
-      }
-    },
-    {
-      "at": "2026-08-30T12:07:21.821865+00:00",
-      "kind": "note",
-      "message": "desk: The desk has one trade: a small long in LINK/USD. The technical analyst identified LINK as the only symbol with a clear directional structure\u2014a persistent uptrend with minimal pullback over 20 bars and 10-period above 30-period confirmation. All other symbols show violent oscillation (BTC), no trend (ETH, SOL, XRP, DOGE), or conviction too low to trade. The research provided material news on BTC (Fed hawkishness, negative ETF flows, liquidations), ETH (strong inflows, treasury expansion), and SOL (protocol upgrade), but none of this altered the technical picture enough to override the lack of price structure in ETH, SOL, XRP, or DOGE. BTC remains too noisy to call despite the technicals capturing the recent selloff. LINK's move is small (0.77%) and vulnerable to retracement on sentiment shifts or broader risk-off, so conviction is tempered and sizing is light.",
-      "vetoed": null,
-      "usage": {
-        "input": 21426,
-        "output": 1905,
-        "cache_read": 0,
-        "calls": 5
-      }
-    },
     {
       "at": "2026-08-30T12:07:21.898074+00:00",
       "kind": "fill",
@@ -649,6 +640,31 @@
         "cache_read": 0,
         "calls": 5
       }
+    },
+    {
+      "at": "2026-09-01T20:09:04.901519+00:00",
+      "kind": "note",
+      "message": "desk: The technical analyst makes a reasoned case for SOL on the basis of consolidation, tight moving averages centred on price, and negative funding\u2014a genuine asymmetry signal. The research context adds weight: the Sept 9 upgrade and rent reduction are concrete protocol improvements with real developer impact, and SOL ETF inflows were the strongest since October 2025. The main disagreement is implicit: the technical view does not rely on the news, making them independent observations. The risk is real\u2014tight ranges break both ways, and macro hawkishness (evident in BTC and ETH weakness today) could overwhelm fundamental support. On balance, the negative funding is the strongest edge: it is a market-structure signal, not sentiment repetition. BTC, ETH, XRP, LINK, and DOGE offer no material edge; BTC and ETH are caught in macro repricing, and the others have no signal at all. We take a small SOL position and hold the rest.",
+      "vetoed": null,
+      "usage": {
+        "input": 18663,
+        "output": 1006,
+        "cache_read": 0,
+        "calls": 5
+      }
+    },
+    {
+      "at": "2026-09-01T20:09:05.012471+00:00",
+      "kind": "fill",
+      "order_id": "paper-9",
+      "venue": "paper",
+      "symbol": "SOL/USD",
+      "side": "buy",
+      "quantity": 49.9713753,
+      "price": 99.98989,
+      "fee": 4.996632319395717,
+      "notional": 4996.63,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
@@ -663,11 +679,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 99642.18,
-    "buy_and_hold_return_pct": -0.36,
-    "strategy_value": 99842.81,
-    "strategy_return_pct": -0.16,
-    "excess_return_pct": 0.2,
+    "buy_and_hold_value": 99653.92,
+    "buy_and_hold_return_pct": -0.35,
+    "strategy_value": 99833.32,
+    "strategy_return_pct": -0.17,
+    "excess_return_pct": 0.18,
     "meaningful": false,
     "caveat": "only 6.2 days - too short to mean anything, treat any difference as noise until about 30"
   }

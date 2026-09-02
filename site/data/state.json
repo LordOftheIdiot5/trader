@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-02T01:23:22.363312+00:00",
+  "generated_at": "2026-09-02T01:29:10.844877+00:00",
   "risk": {
-    "day": "2026-09-01",
-    "orders_today": 3,
-    "notional_today": 16980.89,
-    "realised_pnl_today": -23.7,
+    "day": "2026-09-02",
+    "orders_today": 1,
+    "notional_today": 4970.17,
+    "realised_pnl_today": -26.46,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,51 +18,24 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 94841.18,
-      "equity": 99823.82,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 49.9713753,
-          "average_price": 99.98989
-        }
-      }
+      "cash": 99806.38,
+      "equity": 99806.38,
+      "positions": {}
     },
     "alpaca": {
       "reachable": true,
-      "cash": 94841.18,
-      "equity": 99823.82,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 49.9713753,
-          "average_price": 99.98989
-        }
-      }
+      "cash": 99806.38,
+      "equity": 99806.38,
+      "positions": {}
     },
     "crypto": {
       "reachable": true,
-      "cash": 94841.18,
-      "equity": 99823.82,
-      "positions": {
-        "SOL/USD": {
-          "quantity": 49.9713753,
-          "average_price": 99.98989
-        }
-      }
+      "cash": 99806.38,
+      "equity": 99806.38,
+      "positions": {}
     }
   },
   "recent": [
-    {
-      "at": "2026-08-30T16:21:45.429588+00:00",
-      "kind": "note",
-      "message": "desk: The desk sees one actionable setup: LINK/USD exhibits a genuine uptrend structure (price advancing from 11.43 to current 11.64, 10-period crossing above 30-period) with conviction 3 from technical analysis. All other symbols\u2014BTC, ETH, SOL, XRP, DOGE\u2014show either choppy oscillation or tight ranges with no sustained directional bias; the technical analyst assigns them conviction 1\u20132 and recommends hold. The research context on ETH's 30% weekly rally and strong BlackRock inflows is noted but cannot override the lack of recent directional structure in the hourly price snapshot (price is only 1% above its 10-period mean and recent observations show noise). We size LINK at 0.05 of cash\u2014conservative relative to conviction 3\u2014because the trend is shallow and lacks violent confirmation; a single sharp reversal could collapse the structure. No other symbol warrants entry.",
-      "vetoed": null,
-      "usage": {
-        "input": 20965,
-        "output": 1754,
-        "cache_read": 0,
-        "calls": 5
-      }
-    },
     {
       "at": "2026-08-30T16:21:45.501978+00:00",
       "kind": "fill",
@@ -663,6 +636,19 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-09-02T01:29:10.844639+00:00",
+      "kind": "fill",
+      "order_id": "paper-10",
+      "venue": "paper",
+      "symbol": "SOL/USD",
+      "side": "sell",
+      "quantity": 49.9713753,
+      "price": 99.46044,
+      "fee": 4.970174974743132,
+      "notional": 4970.17,
+      "strategy": "desk"
     }
   ],
   "benchmark": {
@@ -677,11 +663,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 99380.31,
-    "buy_and_hold_return_pct": -0.62,
-    "strategy_value": 99823.82,
-    "strategy_return_pct": -0.18,
-    "excess_return_pct": 0.44,
+    "buy_and_hold_value": 99260.13,
+    "buy_and_hold_return_pct": -0.74,
+    "strategy_value": 99806.38,
+    "strategy_return_pct": -0.19,
+    "excess_return_pct": 0.55,
     "meaningful": false,
     "caveat": "only 6.4 days - too short to mean anything, treat any difference as noise until about 30"
   }

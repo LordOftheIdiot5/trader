@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T15:05:11.908784+00:00",
+  "generated_at": "2026-09-06T15:10:30.657904+00:00",
   "risk": {
     "day": "2026-09-04",
     "orders_today": 4,
@@ -36,19 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-09-04T10:44:07.972968+00:00",
-      "kind": "fill",
-      "order_id": "paper-3",
-      "venue": "paper",
-      "symbol": "ETH/USD",
-      "side": "sell",
-      "quantity": 2.37149463,
-      "price": 2525.12235,
-      "fee": 5.988314093117981,
-      "notional": 5988.31,
-      "strategy": "desk"
-    },
     {
       "at": "2026-09-04T10:44:08.959140+00:00",
       "kind": "fill",
@@ -343,6 +330,11 @@
       "at": "2026-09-06T14:07:37.955011+00:00",
       "kind": "note",
       "message": "desk did not reach a decision: every analyst seat failed"
+    },
+    {
+      "at": "2026-09-06T15:10:30.657691+00:00",
+      "kind": "note",
+      "message": "desk did not reach a decision: every analyst seat failed"
     }
   ],
   "benchmark": {
@@ -357,11 +349,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 104913.6,
-    "buy_and_hold_return_pct": 4.91,
+    "buy_and_hold_value": 104941.22,
+    "buy_and_hold_return_pct": 4.94,
     "strategy_value": 99916.37,
     "strategy_return_pct": -0.08,
-    "excess_return_pct": -5.0,
+    "excess_return_pct": -5.02,
     "meaningful": false,
     "caveat": "only 11.0 days - too short to mean anything, treat any difference as noise until about 30"
   }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T14:02:18.835958+00:00",
+  "generated_at": "2026-09-06T14:07:37.955194+00:00",
   "risk": {
     "day": "2026-09-04",
     "orders_today": 4,
@@ -36,18 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-09-04T10:44:07.932635+00:00",
-      "kind": "note",
-      "message": "desk: Both research and technical agree on exit signals for ETH and SOL. ETH: position is crowded (12-day institutional inflow streak, elevated funding), underwater, and price lacks conviction at the mean\u2014sell. SOL: position is similarly underwater, sideways, with known event risk (Sep 9 upgrade) already reflected in price; the catalyst thesis has faded into execution uncertainty\u2014sell. BTC: technical holds at conviction 1; price oscillates tightly around both means with no resolved direction and ETF outflows ($730M Sep 4) offsetting August inflows. No edge justifies entry or exit. The desk closes both losing positions to reduce carry costs and regain optionality. Cash remains modest (~$89k) and the two sales will free ~$6k notional relief against $10.95% annualised funding drag.",
-      "vetoed": null,
-      "usage": {
-        "input": 20527,
-        "output": 1724,
-        "cache_read": 0,
-        "calls": 5
-      }
-    },
     {
       "at": "2026-09-04T10:44:07.972968+00:00",
       "kind": "fill",
@@ -350,6 +338,11 @@
       "at": "2026-09-06T13:04:45.990794+00:00",
       "kind": "note",
       "message": "desk did not reach a decision: every analyst seat failed"
+    },
+    {
+      "at": "2026-09-06T14:07:37.955011+00:00",
+      "kind": "note",
+      "message": "desk did not reach a decision: every analyst seat failed"
     }
   ],
   "benchmark": {
@@ -364,11 +357,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 106112.73,
-    "buy_and_hold_return_pct": 6.11,
+    "buy_and_hold_value": 106047.94,
+    "buy_and_hold_return_pct": 6.05,
     "strategy_value": 99916.37,
     "strategy_return_pct": -0.08,
-    "excess_return_pct": -6.2,
+    "excess_return_pct": -6.13,
     "meaningful": false,
     "caveat": "only 10.9 days - too short to mean anything, treat any difference as noise until about 30"
   }

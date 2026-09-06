@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:53:41.036885+00:00",
+  "generated_at": "2026-09-06T10:59:00.576848+00:00",
   "risk": {
     "day": "2026-09-04",
     "orders_today": 4,
@@ -36,18 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-09-04T09:39:03.278812+00:00",
-      "kind": "note",
-      "message": "desk: The desk buys ETH and SOL on conviction-3 technical setups with independent fundamental support, while holding BTC, LINK, and the remaining symbols. ETH and SOL both show established higher-low/higher-high patterns, multi-day persistence of 10-period above 30-period means, and directional closes without retracement\u2014measurable facts, not momentum restated. ETH benefits from 12 consecutive days of institutional inflows (material divergence from BTC outflows); SOL has scheduled upgrade catalysts and the strongest institutional week since October 2025. BTC consolidates with no trend, elevated funding on modest OI, and macro headwinds; conviction is 2. LINK has upward bias but lacks the persistence or fresh catalyst to justify entry at conviction 2. XRP and DOGE lack any directional structure and conviction 1 reasons. Sizing is conservative (6% ETH, 5% SOL) to respect that convictions 3 on shorter windows can still reverse; we are not averaging weak views into action.",
-      "vetoed": null,
-      "usage": {
-        "input": 21250,
-        "output": 2478,
-        "cache_read": 0,
-        "calls": 5
-      }
-    },
     {
       "at": "2026-09-04T09:39:03.323094+00:00",
       "kind": "fill",
@@ -373,6 +361,11 @@
       "at": "2026-09-06T09:56:06.117219+00:00",
       "kind": "note",
       "message": "desk did not reach a decision: every analyst seat failed"
+    },
+    {
+      "at": "2026-09-06T10:59:00.576573+00:00",
+      "kind": "note",
+      "message": "desk did not reach a decision: every analyst seat failed"
     }
   ],
   "benchmark": {
@@ -387,11 +380,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 106165.48,
-    "buy_and_hold_return_pct": 6.17,
+    "buy_and_hold_value": 106245.86,
+    "buy_and_hold_return_pct": 6.25,
     "strategy_value": 99916.37,
     "strategy_return_pct": -0.08,
-    "excess_return_pct": -6.25,
+    "excess_return_pct": -6.33,
     "meaningful": false,
     "caveat": "only 10.8 days - too short to mean anything, treat any difference as noise until about 30"
   }

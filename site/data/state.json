@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-19T06:10:53.365385+00:00",
+  "generated_at": "2026-10-19T06:14:13.809420+00:00",
   "risk": {
-    "day": "2026-09-04",
-    "orders_today": 4,
-    "notional_today": 21978.56,
-    "realised_pnl_today": -61.65,
+    "day": "2026-10-19",
+    "orders_today": 0,
+    "notional_today": 0.0,
+    "realised_pnl_today": 0.0,
     "halted": false,
     "halt_reason": null,
     "limits": {
@@ -18,29 +18,24 @@
   "venues": {
     "paper": {
       "reachable": true,
-      "cash": 99916.37,
-      "equity": 99916.37,
+      "cash": 100000.0,
+      "equity": 100000.0,
       "positions": {}
     },
     "alpaca": {
       "reachable": true,
-      "cash": 99916.37,
-      "equity": 99916.37,
+      "cash": 100000.0,
+      "equity": 100000.0,
       "positions": {}
     },
     "crypto": {
       "reachable": true,
-      "cash": 99916.37,
-      "equity": 99916.37,
+      "cash": 100000.0,
+      "equity": 100000.0,
       "positions": {}
     }
   },
   "recent": [
-    {
-      "at": "2026-09-10T11:27:11.750705+00:00",
-      "kind": "note",
-      "message": "desk did not reach a decision: every analyst seat failed"
-    },
     {
       "at": "2026-09-10T12:30:05.083001+00:00",
       "kind": "note",
@@ -285,6 +280,11 @@
       "at": "2026-10-19T05:18:30.032158+00:00",
       "kind": "note",
       "message": "desk did not reach a decision: every analyst seat failed"
+    },
+    {
+      "at": "2026-10-19T06:14:13.809153+00:00",
+      "kind": "note",
+      "message": "desk did not reach a decision: every analyst seat failed"
     }
   ],
   "benchmark": {
@@ -299,11 +299,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 102460.47,
-    "buy_and_hold_return_pct": 2.46,
-    "strategy_value": 99916.37,
-    "strategy_return_pct": -0.08,
-    "excess_return_pct": -2.54,
+    "buy_and_hold_value": 102476.78,
+    "buy_and_hold_return_pct": 2.48,
+    "strategy_value": 100000.0,
+    "strategy_return_pct": 0.0,
+    "excess_return_pct": -2.48,
     "meaningful": true,
     "caveat": ""
   }

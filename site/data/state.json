@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T09:58:55.508994+00:00",
+  "generated_at": "2026-10-20T10:04:16.033033+00:00",
   "risk": {
     "day": "2026-10-19",
     "orders_today": 0,
@@ -299,11 +299,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 100826.54,
-    "buy_and_hold_return_pct": 0.83,
+    "buy_and_hold_value": 100911.13,
+    "buy_and_hold_return_pct": 0.91,
     "strategy_value": 100000.0,
     "strategy_return_pct": 0.0,
-    "excess_return_pct": -0.83,
+    "excess_return_pct": -0.91,
     "meaningful": true,
     "caveat": ""
   }

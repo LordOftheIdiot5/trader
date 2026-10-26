@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T21:06:59.866492+00:00",
+  "generated_at": "2026-10-26T21:12:20.754850+00:00",
   "risk": {
     "day": "2026-10-24",
     "orders_today": 0,
@@ -36,11 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-10-24T16:47:51.502832+00:00",
-      "kind": "note",
-      "message": "desk did not reach a decision: every analyst seat failed"
-    },
     {
       "at": "2026-10-24T17:50:45.862932+00:00",
       "kind": "note",
@@ -285,12 +280,17 @@
       "at": "2026-10-26T20:09:26.816263+00:00",
       "kind": "note",
       "message": "desk did not reach a decision: every analyst seat failed"
+    },
+    {
+      "at": "2026-10-26T21:12:20.754628+00:00",
+      "kind": "note",
+      "message": "desk did not reach a decision: every analyst seat failed"
     }
   ],
   "benchmark": {
     "available": true,
     "started_at": "2026-08-26T15:17:57.278559+00:00",
-    "days_running": 61.24,
+    "days_running": 61.25,
     "basket": [
       "BTC/USD",
       "DOGE/USD",
@@ -299,11 +299,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 97930.28,
-    "buy_and_hold_return_pct": -2.07,
+    "buy_and_hold_value": 98035.3,
+    "buy_and_hold_return_pct": -1.96,
     "strategy_value": 100000.0,
     "strategy_return_pct": 0.0,
-    "excess_return_pct": 2.07,
+    "excess_return_pct": 1.96,
     "meaningful": true,
     "caveat": ""
   }

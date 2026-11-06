@@ -3,9 +3,13 @@ name: Tests
 # The risk gate is the only thing between a bad strategy and an empty account,
 # so it gets tested on every push rather than when someone remembers.
 
+# Do not run Python tests on the VPS's frequent derived dashboard snapshots.
+# Source changes and pull requests still receive the normal risk-gate tests.
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "site/data/state.json"
   pull_request:
   workflow_dispatch:
 

@@ -4,12 +4,10 @@ name: Deploy dashboard
 # seen a credential stay out of the artifact - Pages serves whatever it is
 # given, publicly, so the upload path is deliberately narrow.
 
+# Temporarily paused automatic dashboard publishing to reduce GitHub Actions usage.
+# The VPS can still publish state.json; the public GitHub Pages dashboard remains
+# at its last deployed version until manually deployed with workflow_dispatch.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/**"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:

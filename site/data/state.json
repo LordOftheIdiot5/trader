@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T07:49:12.111857+00:00",
+  "generated_at": "2026-11-22T07:54:58.563380+00:00",
   "risk": {
     "day": "2026-11-20",
     "orders_today": 0,
@@ -36,11 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-11-19T15:36:39.161903+00:00",
-      "kind": "note",
-      "message": "desk did not reach a decision: every analyst seat failed"
-    },
     {
       "at": "2026-11-19T16:39:36.620108+00:00",
       "kind": "note",
@@ -334,6 +329,18 @@
         "cache_read": 0,
         "calls": 3
       }
+    },
+    {
+      "at": "2026-11-22T07:54:58.561934+00:00",
+      "kind": "note",
+      "message": "desk: The technical analyst found no actionable setups across the board. All six symbols display choppy, directionless price action tightly clustered around their 10- and 30-period means, with no sustained trend character and conviction ratings of 1\u20132 across the desk. The research backdrop\u2014liquidations, ETF outflows, Foundation selling in ETH, mixed institutional tailwinds in SOL\u2014is already priced into the sharp recent drawdowns. BTC recovered 9% from $55k lows; ETH and SOL both down sharply off support; XRP and LINK show crowded positioning (XRP 7.52% annualised funding) but no technical signal. The desk's collective conclusion is that this is a sideways, low-signal environment after a liquidation event. Waiting for a trend to establish or for price to break the existing tight ranges is the correct posture. No trade meets the bar.",
+      "vetoed": null,
+      "usage": {
+        "input": 14888,
+        "output": 1213,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
@@ -348,11 +355,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 70643.6,
-    "buy_and_hold_return_pct": -29.36,
+    "buy_and_hold_value": 70633.7,
+    "buy_and_hold_return_pct": -29.37,
     "strategy_value": 100000.0,
     "strategy_return_pct": 0.0,
-    "excess_return_pct": 29.36,
+    "excess_return_pct": 29.37,
     "meaningful": true,
     "caveat": ""
   }

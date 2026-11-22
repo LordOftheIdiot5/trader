@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T02:32:56.469812+00:00",
+  "generated_at": "2026-11-22T02:38:47.969170+00:00",
   "risk": {
     "day": "2026-11-20",
     "orders_today": 0,
@@ -36,11 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-11-19T10:21:50.848890+00:00",
-      "kind": "note",
-      "message": "desk did not reach a decision: every analyst seat failed"
-    },
     {
       "at": "2026-11-19T11:24:43.310211+00:00",
       "kind": "note",
@@ -299,6 +294,18 @@
         "cache_read": 0,
         "calls": 3
       }
+    },
+    {
+      "at": "2026-11-22T02:38:47.968940+00:00",
+      "kind": "note",
+      "message": "desk: The technical analyst identified weakness across most symbols\u2014BTC, ETH, XRP, and LINK all showing price below their moving averages with deteriorating recent trends\u2014but conviction levels and risk/reward do not support action at this moment. BTC has conviction 3 on the sell case, but the analyst themselves flags that negative funding (-9.05% annualised) is rare and may already reflect forced covering; a capitulation flush could reverse sentiment quickly. LINK also has conviction 3, but funding crowding (10.24%) is elevated but not extreme, and price is only 0.2% below the 10-period MA\u2014a 0.4% rebound reverses the signal entirely. ETH and XRP both carry conviction 2 and show modest technical deterioration (0.5-0.6% below moving averages) with no positioning extremes to anchor a view. The research backdrop is systematic institutional outflows from BTC and ETH spot vehicles and liquidation cascades, which are plausibly already priced into the current levels given that BTC broke below $60K on Nov 21 and the ETF outflows are from days ago. SOL and DOGE show no technical edge and are consolidating. The desk agrees weakness is present but disagrees on whether it is actionable: the technician has identified deterioration, but the gaps are small, mean-reversion is as plausible as continuation, and the most extreme signal (BTC's negative funding) may already have flushed weaker longs. Without a catalyst or a larger move to confirm direction, entering shorts here risks catching falling knives or getting shaken out on mean reversion. Hold across the board.",
+      "vetoed": null,
+      "usage": {
+        "input": 15014,
+        "output": 1678,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
@@ -313,11 +320,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 71099.94,
-    "buy_and_hold_return_pct": -28.9,
+    "buy_and_hold_value": 71040.48,
+    "buy_and_hold_return_pct": -28.96,
     "strategy_value": 100000.0,
     "strategy_return_pct": 0.0,
-    "excess_return_pct": 28.9,
+    "excess_return_pct": 28.96,
     "meaningful": true,
     "caveat": ""
   }

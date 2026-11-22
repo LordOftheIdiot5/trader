@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T09:55:53.094232+00:00",
+  "generated_at": "2026-11-22T10:01:41.421099+00:00",
   "risk": {
     "day": "2026-11-20",
     "orders_today": 0,
@@ -36,11 +36,6 @@
     }
   },
   "recent": [
-    {
-      "at": "2026-11-19T17:42:28.228565+00:00",
-      "kind": "note",
-      "message": "desk did not reach a decision: every analyst seat failed"
-    },
     {
       "at": "2026-11-19T18:45:24.197158+00:00",
       "kind": "note",
@@ -348,6 +343,18 @@
         "cache_read": 0,
         "calls": 4
       }
+    },
+    {
+      "at": "2026-11-22T10:01:41.420781+00:00",
+      "kind": "note",
+      "message": "desk: The technical analyst found all six symbols trading above both their 10- and 30-period moving averages, with modest upside momentum over the last 10 observations. However, the conviction on every symbol is 1 or 2\u2014remarks, not trade signals. The 40-observation window is too short to discern durable trend structure; most moves (0.7% to 2.5% over 40 bars) fall within noise. BTC and DOGE both show elevated funding (10.95% annualised), signalling crowded longs that create reversal risk rather than entry signals. Research provided material context\u2014BlackRock outflows and liquidations in BTC, protocol delays in ETH, whale unstakes in SOL\u2014but that information is outside the snapshot and cannot be weighed against live price action. The technical analyst correctly noted that they cannot incorporate that into their framework. No position has clear edge: upside momentum without catalysts, crowded positioning in the two highest-conviction names, and insufficient data depth to call a trend. The desk holds cash.",
+      "vetoed": null,
+      "usage": {
+        "input": 14853,
+        "output": 1319,
+        "cache_read": 0,
+        "calls": 4
+      }
     }
   ],
   "benchmark": {
@@ -362,11 +369,11 @@
       "SOL/USD",
       "XRP/USD"
     ],
-    "buy_and_hold_value": 72199.91,
-    "buy_and_hold_return_pct": -27.8,
+    "buy_and_hold_value": 72251.49,
+    "buy_and_hold_return_pct": -27.75,
     "strategy_value": 100000.0,
     "strategy_return_pct": 0.0,
-    "excess_return_pct": 27.8,
+    "excess_return_pct": 27.75,
     "meaningful": true,
     "caveat": ""
   }
